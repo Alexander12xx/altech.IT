@@ -12,7 +12,7 @@
   <div class="hero-section">
     <header>
       
-      <h1>ALTECH</h1>
+      <h1><strong>ALTECH</strong></h1>
       <p>Web Development | Graphics Design | Video Editing</p>
     </header>
     <div class="cta-button">
@@ -33,7 +33,7 @@
         </a>
       </div>
 
-      <p>We build modern, responsive websites tailored to your business goals.</p>
+      <p><strong>Build modern, responsive websites tailored to your business goals.</strong></p>
     </div>
     <div class="service-card">
       <img src="images/OIP.jpeg" alt="Graphics Design">
@@ -44,7 +44,7 @@
         </a>
       </div>
       
-      <p>From logos to posters, we craft visually stunning designs that speak volumes.</p>
+      <p><strong>logos to posters, we craft visually stunning designs that speak volumes.</strong></p>
     </div>
     <div class="service-card">
       <img src="images/Artboard 4.png" alt="Video Editing">
@@ -55,9 +55,117 @@
         </a>
       </div>
       
-      <p>High-quality video edits that bring your stories and messages to life.</p>
+      <p><strong>video edits that bring your stories and messages to life.</strong></p>
     </div>
   </section>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <section class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">Electronics & Accessories</h1>
+    <h1><strong>Quality products:</strong></h1>
+
+
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+      <!-- Product Card Example -->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/oraimo-removebg-preview.png" alt="Oraimo airbuds" class="w-full h-40 object-cover rounded">
+        <h2 class="mt-2 text-lg font-semibold">Oraimo airbuds</h2>
+        <p class="text-blue-600 font-bold">KSh 850</p>
+        <button onclick="orderWhatsApp('Oraimo airbuds', 850)"
+                class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Order via WhatsApp
+        </button>
+      </div>
+
+      <!-- More products -->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/bt spk.jpeg" alt="wireless bt" class="w-full h-40 object-cover rounded">
+        <h2 class="mt-2 text-lg font-semibold">F109 Bluetooth wireless speaker</h2>
+        <p class="text-blue-600 font-bold">KSh 1400</p>
+        <button onclick="orderWhatsApp('F109 Bluetooth wireless speaker', 1400)"
+                class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Order via WhatsApp
+        </button>
+      </div>
+
+<!-- More products -->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/spk.jpeg" alt="bt speaker" class="w-full h-40 object-cover rounded">
+        <h2 class="mt-2 text-lg font-semibold">F105 Bluetooth wireless speaker</h2>
+        <p class="text-blue-600 font-bold">KSh 1200</p>
+        <button onclick="orderWhatsApp('F105 Bluetooth wireless speaker', 1200)"
+                class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Order via WhatsApp
+        </button>
+      </div>
+      <!-- More products -->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/Bamboo mwiko.jpeg" alt="Bamboo Mwiko" class="w-full h-40 object-cover rounded">
+        <h2 class="mt-2 text-lg font-semibold">Bamboo Mwiko</h2>
+        <p class="text-blue-600 font-bold">KSh 600</p>
+        <button onclick="orderWhatsApp('Bamboo Mwiko', 600)"
+                class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Order via WhatsApp
+        </button>
+      </div>
+       <!-- More products -->
+       <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/blender.jpeg" alt="Portable Blender" class="w-full h-40 object-cover rounded">
+        <h2 class="mt-2 text-lg font-semibold">Portable Blender</h2>
+        <p class="text-blue-600 font-bold">KSh 1200</p>
+        <button onclick="orderWhatsApp('Portable Blender', 1200)"
+                class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Order via WhatsApp
+        </button>
+      </div>
+       <!-- More products -->
+       <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/Portable fan.jpeg" alt="Hand Held Portable Fan" class="w-full h-40 object-cover rounded">
+        <h2 class="mt-2 text-lg font-semibold">Hand Held Portable Fan</h2>
+        <p class="text-blue-600 font-bold">KSh 600</p>
+        <button onclick="orderWhatsApp('Hand Held Portable Fan', 600)"
+                class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+          Order via WhatsApp
+        </button>
+      </div>
+      
+
+    </div>
+  </section>
+  <section>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+<div class="card">
+    <div class="img">
+        
+    </div>
+    
+</div>
+</body>
+
+  </section>
+
+  <script>
+    function orderWhatsApp(product, price) {
+      const phone = "254706389206"; // Replace with your WhatsApp number
+      const msg = `Hello! I'm interested in buying *${product}* for *KSh ${price}*. Is it available?`;
+      const encoded = encodeURIComponent(msg);
+      window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+    }
+  </script>
+   
+   
+
   <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
   <script>
     /* paste this line in verbatim */
