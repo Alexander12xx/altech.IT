@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ALTECH | Web, Graphics & Video Solutions</title>
   <link rel="stylesheet" href="styles.css" />
   <script defer src="script.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800">
   <div class="hero-section">
     <header>
-      
       <h1><strong>ALTECH</strong></h1>
       <p>Web Development | Graphics Design | Video Editing | Sales</p>
     </header>
@@ -22,6 +21,7 @@
     </div>
   </div>
 
+  <!-- Services Section -->
   <section class="services">
     <h2>Our Services</h2>
     <div class="service-card">
@@ -59,6 +59,7 @@
     </div>
   </section>
 
+  <!-- Products Section -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -77,7 +78,7 @@
         <p class="text-blue-600 font-bold">KSh 850</p>
         <button onclick="orderWhatsApp('Oraimo airbuds', 850)"
                 class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-          Buy now
+          Order
         </button>
       </div>
 
@@ -88,7 +89,7 @@
         <p class="text-blue-600 font-bold">KSh 1400</p>
         <button onclick="orderWhatsApp('F109 Bluetooth wireless speaker', 1400)"
                 class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-          Buy now 
+          Order 
         </button>
       </div>
 
@@ -99,7 +100,7 @@
         <p class="text-blue-600 font-bold">KSh 1200</p>
         <button onclick="orderWhatsApp('F105 Bluetooth wireless speaker', 1200)"
                 class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-          Buy now
+          Order 
         </button>
       </div>
       <!-- More products -->
@@ -109,7 +110,7 @@
         <p class="text-blue-600 font-bold">KSh 600</p>
         <button onclick="orderWhatsApp('Bamboo Mwiko', 600)"
                 class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-         Buy now 
+          Order 
         </button>
       </div>
        <!-- More products -->
@@ -119,7 +120,7 @@
         <p class="text-blue-600 font-bold">KSh 1200</p>
         <button onclick="orderWhatsApp('Portable Blender', 1200)"
                 class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-         Buy now 
+          Order 
         </button>
       </div>
        <!-- More products -->
@@ -129,7 +130,7 @@
         <p class="text-blue-600 font-bold">KSh 600</p>
         <button onclick="orderWhatsApp('Hand Held Portable Fan', 600)"
                 class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-          Buy now 
+          Order 
         </button>
       </div>
         <!-- More products -->
@@ -139,7 +140,7 @@
           <p class="text-blue-600 font-bold">KSh 850</p>
           <button onclick="orderWhatsApp('P9 Wireless', 850)"
                   class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-           Buy now
+            Order 
           </button>
         </div>
           <!-- More products -->
@@ -149,142 +150,188 @@
             <p class="text-blue-600 font-bold">KSh 850</p>
             <button onclick="orderWhatsApp('JBL Air F9 Pro+', 850)"
                     class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-            Buy now
+              Order 
             </button>
           </div>
   
       
     </div>
   </section>
- <!-- Job Application Section (Modern Design) -->
-<section class="bg-gradient-to-br from-white to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-3xl mx-auto">
-    <h2 class="text-4xl font-bold text-center text-gray-800 mb-6">Join Our Team</h2>
-    <h3 class="text-blue-600 text-center text-2xl"><strong> Junior video editor</strong></h3>
-    <p class="text-center text-gray-600 mb-10 text-lg">We're hiring! Submit your application below to be considered for current or future opportunities.</p>
-    <form id="jobApplicationForm" class="bg-white p-10 shadow-xl rounded-xl space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-          <input type="text" id="fullName" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+  <!-- Upcoming Matches Section -->
+  <section class="bg-gradient-to-r from-blue-100 to-blue-200 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-4xl font-bold text-center text-gray-800 mb-6">Upcoming Matches</h2>
+      <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition relative">
+          <div class="flex justify-between items-center mb-4">
+            <img src="images/newcastle.jpeg" alt="ALTECH FC" class="w-12 h-12 rounded-full">
+            <span class="text-gray-700 font-bold">VS</span>
+            <img src="images/chelsea.jpeg" alt="Rivals United" class="w-12 h-12 rounded-full">
+          </div>
+          <h3 class="text-xl font-semibold text-blue-600 text-center">Newcastle vs Chelsea</h3>
+          <p class="text-center text-gray-700">Date: Sun, May 11, 2025<br>Time: 2:00 PM<br>Venue: St.James' Park</p>
+          <div class="text-center mt-4">
+            <span class="countdown block text-lg font-bold text-red-600" data-time="2025-05-11T14:00:00"></span>
+          </div>
         </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input type="email" id="email" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition relative">
+          <div class="flex justify-between items-center mb-4">
+            <img src="images/man u.png " alt="ALTECH FC" class="w-12 h-12 rounded-full">
+            <span class="text-gray-700 font-bold">VS</span>
+            <img src="images/westham.jpeg" alt="Iron Kickers" class="w-12 h-12 rounded-full">
+          </div>
+          <h3 class="text-xl font-semibold text-blue-600 text-center">Man Utd vs West Ham</h3>
+          <p class="text-center text-gray-700">Date:  Sun, May 11, 2025<br>Time: 4:15 PM<br>Venue: Old Traford, Manchester </p>
+          <div class="text-center mt-4">
+            <span class="countdown block text-lg font-bold text-red-600" data-time="2025-05-11T16:15:00"></span>
+          </div>
         </div>
-        <div>
-          <label for="profession" class="block text-sm font-medium text-gray-700 mb-1">Profession</label>
-          <input type="text" id="profession" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-          <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-          <input type="tel" id="phoneNumber" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition relative">
+          <div class="flex justify-between items-center mb-4">
+            <img src="images/liverpool-fc.webp" alt="ALTECH FC" class="w-12 h-12 rounded-full">
+            <span class="text-gray-700 font-bold">VS</span>
+            <img src="images/arsenal.jpeg" alt="Storm Warriors" class="w-12 h-12 rounded-full">
+          </div>
+          <h3 class="text-xl font-semibold text-blue-600 text-center">Liverpool vs Arsenal</h3>
+          <p class="text-center text-gray-700">Date:  Sun, May 11, 2025<br>Time: 6:30 PM<br>Venue: Anfield, Liverpool</p>
+          <div class="text-center mt-4">
+            <span class="countdown block text-lg font-bold text-red-600" data-time="2025-05-11T18:30:00"></span>
+          </div>
         </div>
       </div>
-      <div class="text-center">
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-md transition duration-300">
-          Send Application 
-        </button>
-      </div>
-    </form>
-  </div>
-</section>
+    </div>
+  </section>
 
-<script>
-  document.getElementById("jobApplicationForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const name = document.getElementById("fullName").value;
-    const email = document.getElementById("email").value;
-    const profession = document.getElementById("profession").value;
-    const phone = document.getElementById("phoneNumber").value;
-    const message = `Hello, I am applying for a job.\n\nName: *${name}*\nEmail: *${email}*\nProfession: *${profession}*\nPhone: *${phone}*`;
-    const waUrl = `https://wa.me/254706389206?text=${encodeURIComponent(message)}`;
-    window.open(waUrl, '_blank');
-  });
-</script>
 
-  <section>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Job Application Section -->
+  <section class="bg-gradient-to-br from-white to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold text-center text-gray-800 mb-6">Join Our Team</h2>
+      <h3 class="text-blue-600 text-center text-2xl font-semibold">Junior Video Editor</h3>
+      <p class="text-center text-gray-600 mb-10 text-lg">We're hiring! Submit your application below to be considered for current or future opportunities.</p>
+      <form id="jobApplicationForm" class="bg-white p-10 shadow-xl rounded-xl space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input type="text" id="fullName" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="email" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label for="profession" class="block text-sm font-medium text-gray-700 mb-1">Profession</label>
+            <input type="text" id="profession" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+            <input type="tel" id="phoneNumber" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-md transition duration-300">
+            Send Application
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("jobApplicationForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const name = document.getElementById("fullName").value;
+      const email = document.getElementById("email").value;
+      const profession = document.getElementById("profession").value;
+      const phone = document.getElementById("phoneNumber").value;
+      const message = `Hello, I am applying for a job.\n\nName: *${name}*\nEmail: *${email}*\nProfession: *${profession}*\nPhone: *${phone}*`;
+      const waUrl = `https://wa.me/254706389206?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank');
+    });
+  </script>
+
+<section>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="style.css">
 </head>
 
 
 <body>
 <div class="card">
-    <div class="img">
-        
-    </div>
-    
+  <div class="img">
+      
+  </div>
+  
 </div>
 </body>
 
-  </section>
+</section>
 
-  <script>
-    function orderWhatsApp(product, price) {
-      const phone = "254706389206"; // Replace with your WhatsApp number
-      const msg = `Hello! I'm interested in buying *${product}* for *KSh ${price}*. Is it available?`;
-      const encoded = encodeURIComponent(msg);
-      window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
-    }
-  </script>
-   
-   
+<script>
+  function orderWhatsApp(product, price) {
+    const phone = "254706389206"; // Replace with your WhatsApp number
+    const msg = `Hello! I'm interested in buying *${product}* for *KSh ${price}*. Is it available?`;
+    const encoded = encodeURIComponent(msg);
+    window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+  }
+</script>
+ 
+ 
 
-  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
-  <script>
-    /* paste this line in verbatim */
-    window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
-    /* customize formbutton below*/     
-    formbutton("create", {
-      action: "https://formspree.io/f/xkgrodee",
-      title: "How can we help?",
-      fields: [
-      
+<script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+<script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xkgrodee",
+    title: "How can we help?",
+    fields: [
+    
+    {
+        type: "textarea",
+        label: "Name:",
+        name: "Your Name",
+        placeholder: "Full Names",
+      },
       {
-          type: "textarea",
-          label: "Name:",
-          name: "Your Name",
-          placeholder: "Full Names",
-        },
-        {
-          type: "textarea",
-          label: "Contact:",
-          name: "Contact",
-          placeholder: "Phone number.eg +254 767 873 345",
-        },
-      { 
-          type: "email", 
-          label: "Email:", 
-          name: "email",
-          required: true,
-          placeholder: "your@email.com"
-        },
-        {
-          type: "textarea",
-          label: "Message:",
-          name: "message",
-          placeholder: "What's on your mind?",
-        },
+        type: "textarea",
+        label: "Contact:",
+        name: "Contact",
+        placeholder: "Phone number.eg +254 767 873 345",
+      },
+    { 
+        type: "email", 
+        label: "Email:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "Message:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
 
-        { type: "submit" }      
-      ],
-      styles: {
-        title: {
-          backgroundColor: "gray"
-        },
-        button: {
-          backgroundColor: "gray"
-        }
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "gray"
+      },
+      button: {
+        backgroundColor: "gray"
       }
-    });
-  </script>
-  
+    }
+  });
+</script>
 
   <footer>
-    <p>&copy; 2025 ALTECH. All rights reserved.</p>
+    <p class="text-center py-4">&copy; 2025 ALTECH. All rights reserved.</p>
   </footer>
 </body>
 </html>
