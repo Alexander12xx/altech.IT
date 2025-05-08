@@ -234,6 +234,13 @@
 </section>
   
 <script>
+  function orderWhatsApp(product, price) {
+  const phone = "254706389206";
+  const msg = `Hello! I'm interested in buying *${product}* for *KSh ${price}*. Is it available?`;
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+}
+
  function updateCountdowns() {
       const countdowns = document.querySelectorAll('.countdown');
       const now = new Date();
