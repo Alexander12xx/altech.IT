@@ -15,7 +15,7 @@
       <p>Web Development | Graphics Design | Video Editing | Sales</p>
     </header>
     <div class="cta-button">
-      <a href="https://wa.me/qr/EZIOQQM5RFF5E1" target="_blank" class="whatsapp-button">
+      <a href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" class="whatsapp-button">
         Chat With Us on WhatsApp
       </a>
     </div>
@@ -28,7 +28,7 @@
       <img src="images/web dev.jpeg" alt="Web Development">
      
       <div class="cta-button">
-        <a href="https://wa.me/qr/EZIOQQM5RFF5E1" target="_blank" class="whatsapp-button">
+        <a href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" class="whatsapp-button">
           Web development
         </a>
       </div>
@@ -39,7 +39,7 @@
       <img src="images/OIP.jpeg" alt="Graphics Design">
 
       <div class="cta-button">
-        <a href="https://wa.me/qr/EZIOQQM5RFF5E1" target="_blank" class="whatsapp-button">
+        <a href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" class="whatsapp-button">
           Graphics Design
         </a>
       </div>
@@ -50,7 +50,7 @@
       <img src="images/Artboard 4.png" alt="Video Editing">
 
       <div class="cta-button">
-        <a href="https://wa.me/qr/EZIOQQM5RFF5E1" target="_blank" class="whatsapp-button">
+        <a href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" class="whatsapp-button">
           Video Editing
         </a>
       </div>
@@ -159,42 +159,42 @@
   </section>
 
   <!-- Upcoming Matches Section -->
-  <section class="bg-gradient-to-r from-blue-100 to-blue-200 py-12 px-4 sm:px-6 lg:px-8">
+   <section class="bg-gradient-to-r from-blue-100 to-blue-200 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-4xl font-bold text-center text-gray-800 mb-6">Upcoming Matches</h2>
       <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition relative">
           <div class="flex justify-between items-center mb-4">
-            <img src="images/newcastle.jpeg" alt="ALTECH FC" class="w-12 h-12 rounded-full">
+            <img src="images/newcastle.jpeg" alt="Newcastle" class="w-16 h-16 object-contain rounded-full">
             <span class="text-gray-700 font-bold">VS</span>
-            <img src="images/chelsea.jpeg" alt="Rivals United" class="w-12 h-12 rounded-full">
+            <img src="images/chelsea.jpeg" alt="Chelsea" class="w-16 h-16 object-contain rounded-full">
           </div>
           <h3 class="text-xl font-semibold text-blue-600 text-center">Newcastle vs Chelsea</h3>
-          <p class="text-center text-gray-700">Date: Sun, May 11, 2025<br>Time: 2:00 PM<br>Venue: St.James' Park</p>
+          <p class="text-center text-gray-700">Date: May 11, 2025<br>Time: 2:00 PM<br>Venue: St. James' Park</p>
           <div class="text-center mt-4">
             <span class="countdown block text-lg font-bold text-red-600" data-time="2025-05-11T14:00:00"></span>
           </div>
         </div>
         <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition relative">
           <div class="flex justify-between items-center mb-4">
-            <img src="images/man u.png " alt="ALTECH FC" class="w-12 h-12 rounded-full">
+            <img src="images/man u.png" alt="Man Utd" class="w-16 h-16 object-contain rounded-full">
             <span class="text-gray-700 font-bold">VS</span>
-            <img src="images/westham.jpeg" alt="Iron Kickers" class="w-12 h-12 rounded-full">
+            <img src="images/westham.jpeg" alt="West Ham" class="w-16 h-16 object-contain rounded-full">
           </div>
           <h3 class="text-xl font-semibold text-blue-600 text-center">Man Utd vs West Ham</h3>
-          <p class="text-center text-gray-700">Date:  Sun, May 11, 2025<br>Time: 4:15 PM<br>Venue: Old Traford, Manchester </p>
+          <p class="text-center text-gray-700">Date: May 11, 2025<br>Time: 4:15 PM<br>Venue: Old Trafford</p>
           <div class="text-center mt-4">
             <span class="countdown block text-lg font-bold text-red-600" data-time="2025-05-11T16:15:00"></span>
           </div>
         </div>
         <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition relative">
           <div class="flex justify-between items-center mb-4">
-            <img src="images/liverpool-fc.webp" alt="ALTECH FC" class="w-12 h-12 rounded-full">
+            <img src="images/liverpool-fc.webp" alt="Liverpool" class="w-16 h-16 object-contain rounded-full">
             <span class="text-gray-700 font-bold">VS</span>
-            <img src="images/arsenal.jpeg" alt="Storm Warriors" class="w-12 h-12 rounded-full">
+            <img src="images/arsenal.jpeg" alt="Arsenal" class="w-16 h-16 object-contain rounded-full">
           </div>
           <h3 class="text-xl font-semibold text-blue-600 text-center">Liverpool vs Arsenal</h3>
-          <p class="text-center text-gray-700">Date:  Sun, May 11, 2025<br>Time: 6:30 PM<br>Venue: Anfield, Liverpool</p>
+          <p class="text-center text-gray-700">Date: May 11, 2025<br>Time: 6:30 PM<br>Venue: Anfield</p>
           <div class="text-center mt-4">
             <span class="countdown block text-lg font-bold text-red-600" data-time="2025-05-11T18:30:00"></span>
           </div>
@@ -269,6 +269,16 @@
 </body>
 
 </section>
+  
+  <sript>
+     function orderWhatsApp(product, price) {
+    const phone = "254706389206"; // Replace with your WhatsApp number
+    const msg = `Hello! I'm interested in buying *${product}* for *KSh ${price}*. Is it available?`;
+    const encoded = encodeURIComponent(msg);
+    window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+  }
+    
+  </sript>
 
 <script>
   function orderWhatsApp(product, price) {
