@@ -281,13 +281,32 @@
   </sript>
 
 <script>
-  function orderWhatsApp(product, price) {
-    const phone = "254706389206"; // Replace with your WhatsApp number
-    const msg = `Hello! I'm interested in buying *${product}* for *KSh ${price}*. Is it available?`;
-    const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
-  }
+ function updateCountdowns() {
+      const countdowns = document.querySelectorAll('.countdown');
+      const now = new Date();
+
+      countdowns.forEach(el => {
+        const matchTime = new Date(el.getAttribute('data-time'));
+        const diff = matchTime - now;
+
+        if (diff <= 0) {
+          const since = Math.floor((now - matchTime) / 1000);
+          el.textContent = `Started ${since}s ago`;
+        } else {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+
+          el.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+      });
+    }
+
+    setInterval(updateCountdowns, 1000);
+    updateCountdowns();
 </script>
+
  
  
 
