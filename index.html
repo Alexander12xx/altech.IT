@@ -11,7 +11,64 @@
 <body class="bg-gray-100 text-gray-800">
   <div class="hero-section">
     <header>
-      <h1><strong>ALTECH</strong></h1>
+      <!--logo animation-->
+     <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALTECH</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Hexagon Loader Animation */
+    .loader {
+      width: 60px;
+      aspect-ratio: 1.154;
+      --c: #0000 ,#131616 2deg 59deg,#0000 61deg;
+      --c1:conic-gradient(from 149deg at top   ,var(--c));
+      --c2:conic-gradient(from -31deg at bottom,var(--c));
+      background:
+        var(--c1) top,
+        var(--c1) bottom right,
+        var(--c2) bottom,
+        var(--c1) bottom left;
+      background-size: 50% 50%;
+      background-repeat: no-repeat;
+      animation: l37 1s infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes l37 {
+      80%,100% { background-position: bottom right,bottom left,bottom,top; }
+    }
+
+    /* Fade-In Animation for ALTECH */
+    @keyframes fadeInUpDelayed {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-delay {
+      opacity: 0;
+      animation: fadeInUpDelayed 1s ease-out forwards;
+      animation-delay: 1.2s;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen px-4">
+
+  <div class="text-center space-y-6">
+    <div class="loader"></div>
+    
+  </div>
+
+</body>
+<!--h1-->
+       <h1 class="text-8xl font-extrabold text-black tracking-tight fade-in-delay">ALTECH</h1>
       <p>Web Development | Graphics Design | Video Editing | Sales</p>
     </header>
     <div class="cta-button">
