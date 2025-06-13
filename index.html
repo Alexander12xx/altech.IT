@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="styles.css" />
   <script defer src="script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+<!-- AOS -->
+
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+
+
 </head>
 <body class="bg-gray-100 text-gray-800">
   <div class="hero-section">
@@ -116,6 +122,52 @@
     </div>
   </section>
 
+ <section class="altech-projects">
+  <div class="altech-container">
+    <h2 class="altech-title" data-aos="fade-down">🚀 Our Projects</h2>
+    <p class="altech-subtitle" data-aos="fade-down" data-aos-delay="100">
+      Explore the modern, responsive websites we've built.
+    </p>
+    <div class="altech-grid">
+      <a href="https://electronicsg.netlify.app/" target="_blank">
+        <div class="altech-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/ecommerce-wp-solutions.jpg" alt="Gambler Electronics">
+          <div class="altech-info">
+            <h3>Gambler Electronics</h3>
+            <p>A modern e-commerce platform with WhatsApp integration and sleek animations.</p>
+          </div>
+        </div>
+      </a>
+      <!-- Add more project cards here -->
+       <div class="altech-grid">
+      <a href="https://quickfix1.netlify.app/" target="_blank">
+        <div class="altech-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/phone repair 2.webp"  alt="Gambler Electronics">
+          <div class="altech-info">
+            <h3>Gambler Electronics</h3>
+            <p>A modern e-commerce platform with WhatsApp integration and sleek animations.</p>
+          </div>
+        </div>
+      </a>
+       </div>
+      <!-- Add more project cards here -->
+       <div class="altech-grid">
+      <a href="https://altechit.netlify.app/" target="_blank">
+        <div class="altech-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/web-development.jpg"  alt="Gambler Electronics">
+          <div class="altech-info">
+            <h3>ALTECH</h3>
+            <p>Our own website showcasing our services and projects.</p>
+          </div>
+        </div>
+      </a>
+       </div>
+      <!-- Add more project cards here -->
+    </div>
+  </div>
+</section>
+
+
   <!-- Products Section -->
    <section class="max-w-6xl mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold mb-8 text-center">Electronics & Accessories</h1>
@@ -177,51 +229,137 @@
       </div>
     </div>
   </section>
+<section class="matches-section">
+  <h2>⚽ Upcoming EPL Matches</h2>
+  <div id="match-list">Loading matches...</div>
+</section>
 
-  <!-- Upcoming Matches Section -->
-   <section class="bg-gradient-to-r from-blue-100 to-blue-200 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-4xl font-bold text-center text-gray-800 mb-6">Upcoming Matches</h2>
-      <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition relative">
-          <div class="flex justify-between items-center mb-4">
-            <img src="images/man u.png" alt="Man Utd" class="w-16 h-16 object-contain rounded-full">
-            <span class="text-gray-700 font-bold">VS</span>
-            <img src="images/chelsea.jpeg" alt="Chelsea" class="w-16 h-16 object-contain rounded-full">
-          </div>
-          <h3 class="text-xl font-semibold text-blue-600 text-center">Man Utd vs Chelsea</h3>
-          <p class="text-center text-gray-700">Date: May 16, 2025<br>Time: 10:15 PM<br>Venue: Stamford Bridge<br><strong>0 | 0</strong></p>
-          <div class="text-center mt-4">
-            <span class="countdown block text-lg font-bold text-red-600" data-time="2025-05-16T22:15:00"></span>
-          </div>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition relative">
-          <div class="flex justify-between items-center mb-4">
-            <img src="images/crystal palace.png" alt="crystal palace" class="w-16 h-16 object-contain rounded-full">
-            <span class="text-gray-700 font-bold">VS</span>
-            <img src="images/wolves.png" alt="Wolves" class="w-16 h-16 object-contain rounded-full">
-          </div>
-          <h3 class="text-xl font-semibold text-blue-600 text-center">Crystal Place vs Wolves</h3>
-          <p class="text-center text-gray-700">Date: May 20, 2025<br>Time: 10:00 PM<br>Venue: Selhurst Park<br><strong>0 | 0</strong></p>
-          <div class="text-center mt-4">
-            <span class="countdown block text-lg font-bold text-red-600" data-time="2025-05-20T22:00:00"></span>
-          </div>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition relative">
-          <div class="flex justify-between items-center mb-4">
-            <img src="images/newcastle.jpeg" alt="Newcastle" class="w-16 h-16 object-contain rounded-full">
-            <span class="text-gray-700 font-bold">VS</span>
-            <img src="images/arsenal.jpeg" alt="Arsenal" class="w-16 h-16 object-contain rounded-full">
-          </div>
-          <h3 class="text-xl font-semibold text-blue-600 text-center">Newcastle vs Arsenal</h3>
-          <p class="text-center text-gray-700">Date: May 18, 2025<br>Time: 6:30 PM<br>Venue: Emirates Stadium<br><strong>0 | 0</strong></p>
-          <div class="text-center mt-4">
-            <span class="countdown block text-lg font-bold text-red-600" data-time="2025-05-18T18:30:00"></span>
-          </div>
-        </div>
+<style>
+  .matches-section {
+    background: #0f172a;
+    color: #f1f5f9;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .matches-section h2 {
+    color: #38bdf8;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  #match-list {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    max-width: 1200px;
+    margin: auto;
+  }
+  .match-card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+  }
+  .match-card:hover {
+    transform: translateY(-6px);
+  }
+  .team {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .team img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+  .match-card h4 {
+    margin-top: 10px;
+    color: #fcd34d;
+  }
+  .match-card p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+  }
+  .countdown {
+    font-weight: bold;
+    color: #4ade80;
+    margin-top: 8px;
+  }
+</style>
+
+<script>
+async function getTeamLogo(teamName) {
+  const res = await fetch(`https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${encodeURIComponent(teamName)}`);
+  const data = await res.json();
+  return data.teams ? data.teams[0].strTeamBadge : null;
+}
+
+function startCountdown(targetDate, element) {
+  function update() {
+    const now = new Date();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+      element.textContent = "Kickoff!";
+      return;
+    }
+
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    element.textContent = `⏳ ${hours}h ${minutes}m ${seconds}s`;
+    setTimeout(update, 1000);
+  }
+
+  update();
+}
+
+async function displayMatches() {
+  const res = await fetch("https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328");
+  const data = await res.json();
+  const matchList = document.getElementById("match-list");
+  matchList.innerHTML = "";
+
+  for (const match of data.events.slice(0, 6)) {
+    const { strEvent, dateEvent, strTime, strHomeTeam, strAwayTeam, strVenue, intHomeScore, intAwayScore } = match;
+    const homeLogo = await getTeamLogo(strHomeTeam);
+    const awayLogo = await getTeamLogo(strAwayTeam);
+    const scoreText = (intHomeScore !== null && intAwayScore !== null)
+      ? `<strong>Score:</strong> ${intHomeScore} - ${intAwayScore}`
+      : `<strong>Status:</strong> Upcoming`;
+
+    const kickoffTime = new Date(`${dateEvent}T${strTime}`);
+    const displayDate = kickoffTime.toLocaleString();
+
+    const card = document.createElement("div");
+    card.className = "match-card";
+    card.innerHTML = `
+      <div class="team">
+        <img src="${homeLogo}" alt="${strHomeTeam} logo" /> <span>${strHomeTeam}</span>
+        <span style="margin: 0 10px;">vs</span>
+        <img src="${awayLogo}" alt="${strAwayTeam} logo" /> <span>${strAwayTeam}</span>
       </div>
-    </div>
-  </section>
+      <h4>${strEvent}</h4>
+      <p><strong>Date:</strong> ${displayDate}</p>
+      <p><strong>Venue:</strong> ${strVenue || 'TBA'}</p>
+      <p>${scoreText}</p>
+      <p class="countdown">Loading countdown...</p>
+    `;
+    matchList.appendChild(card);
+
+    const countdownEl = card.querySelector(".countdown");
+    startCountdown(kickoffTime, countdownEl);
+  }
+}
+
+displayMatches();
+</script>
+
 
 
   <!-- Job Application Section -->
@@ -278,17 +416,15 @@
 <link rel="stylesheet" href="style.css">
 </head>
 
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
-<body>
-<div class="card">
-  <div class="img">
-      
-  </div>
-  
-</div>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1200, once: true });
+</script>
 
-</section>
+
+
   
 <script>
   function orderWhatsApp(product, price) {
