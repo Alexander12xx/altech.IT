@@ -66,7 +66,77 @@ body.dark-theme {
     border-radius: 10px;
     margin-bottom: 15px;
   }
-  
+ .altech-projects {
+  background: #0f172a;
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.altech-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.altech-title {
+  font-size: 2.5rem;
+  color: #22d3ee;
+  margin-bottom: 10px;
+}
+
+.altech-subtitle {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-bottom: 40px;
+}
+
+.altech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.altech-card {
+  background: #1e293b;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+.altech-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+.altech-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: filter 0.4s ease;
+  filter: brightness(0.9);
+}
+
+.altech-card:hover img {
+  filter: brightness(1.05);
+}
+
+.altech-info {
+  padding: 20px;
+}
+
+.altech-info h3 {
+  color: #22d3ee;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.altech-info p {
+  color: #e2e8f0;
+  font-size: 0.95rem;
+}
+
+
   footer {
     text-align: center;
     padding: 20px;
