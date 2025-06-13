@@ -230,9 +230,58 @@
     </div>
   </section>
 <section class="matches-section">
-  <h2>⚽ Upcoming EPL Matches</h2>
-  <div id="match-list">Loading matches...</div>
+  <h2>⚽ Latest Match Highlights</h2>
+  <div id="match-list">Loading...</div>
 </section>
+
+<script>
+fetch("https://www.scorebat.com/video-api/v3/")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("match-list");
+    container.innerHTML = "";
+
+    data.response.slice(0, 6).forEach(match => {
+      const { title, competition, thumbnail, url } = match;
+      const card = document.createElement("div");
+      card.className = "match-card";
+      card.innerHTML = `
+        <a href="${url}" target="_blank" style="text-decoration:none;">
+          <img src="${thumbnail}" style="width:100%; border-radius:8px;" alt="${title}">
+          <h3 style="color:#38bdf8;">${title}</h3>
+          <p style="color:#ccc;">${competition}</p>
+        </a>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("match-list").innerText = "Failed to load matches.";
+  });
+</script>
+
+<style>
+.matches-section {
+  padding: 40px 20px;
+  background-color: #0f172a;
+  color: #f1f5f9;
+  text-align: center;
+}
+.match-card {
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 350px;
+  background: #1e293b;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+.match-card:hover {
+  transform: translateY(-5px);
+}
+</style>
+
 
 <style>
   .matches-section {
