@@ -5,82 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ALTECH | Web, Graphics & Video Solutions</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="images/ChatGPT Image May 10, 2025, 10_13_44 PM.png" type="images/ChatGPT Image May 10, 2025, 10_13_44 PM.png">
-
-
   <script defer src="script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 <!-- AOS -->
 
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
+<link rel="icon" href="images/ChatGPT Image May 10, 2025, 10_13_44 PM.png" type="images/ChatGPT Image May 10, 2025, 10_13_44 PM.png">
 
 
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <div class="hero-section">
-    <header>
-      <!--logo animation-->
-     <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ALTECH</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Hexagon Loader Animation */
-    .loader {
-      width: 60px;
-      aspect-ratio: 1.154;
-      --c: #0000 ,#131616 2deg 59deg,#0000 61deg;
-      --c1:conic-gradient(from 149deg at top   ,var(--c));
-      --c2:conic-gradient(from -31deg at bottom,var(--c));
-      background:
-        var(--c1) top,
-        var(--c1) bottom right,
-        var(--c2) bottom,
-        var(--c1) bottom left;
-      background-size: 50% 50%;
-      background-repeat: no-repeat;
-      animation: l37 1s infinite;
-      margin: 0 auto;
-    }
+  <div style="padding: 0px;"  class="hero-section">
+    <header style="background:url(https://learning.dell.com/content/dam/dell-emc/heroes/hero-instructor-sessions-xl-1600x300.png);" class="w-full shadow-md py-4 px-6 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <img src="images/ChatGPT Image May 10, 2025, 10_13_44 PM.png" alt="Altech IT Logo" class="h-10 w-10 rounded-full shadow" />
+      </div>
+      <nav class="space-x-8">
+        <a href="#services" class="text-white hover:text-blue-600 font-medium transition scroll-link">Services</a>
+        <a href="#altech-projects" class="text-white hover:text-blue-600 font-medium transition scroll-link">Projects</a>
+        <a href="#matches-section" class="text-white hover:text-blue-600 font-medium transition scroll-link">Matches</a>
+      </nav>
+      <script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('.scroll-link').forEach(link => {
+          link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href').replace('#', '');
+            const target = document.getElementById(targetId);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          });
+        });
+      </script>
+</header>
+<!--logo animation-->
+<div class="text-center space-y-6 my-8">
+  <div class="loader"></div>
+  <h1 class="text-8xl font-extrabold text-black tracking-tight fade-in-delay">ALTECH</h1>
+  <p>Web Development | Graphics Design | Video Editing | Sales</p>
+</div>
+<style>
+  /* Hexagon Loader Animation */
+  .loader {
+    width: 60px;
+    aspect-ratio: 1.154;
+    --c: #0000 ,#131616 2deg 59deg,#0000 61deg;
+    --c1:conic-gradient(from 149deg at top   ,var(--c));
+    --c2:conic-gradient(from -31deg at bottom,var(--c));
+    background:
+      var(--c1) top,
+      var(--c1) bottom right,
+      var(--c2) bottom,
+      var(--c1) bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    animation: l37 1s infinite;
+    margin: 0 auto;
+  }
 
-    @keyframes l37 {
-      80%,100% { background-position: bottom right,bottom left,bottom,top; }
-    }
+  @keyframes l37 {
+    80%,100% { background-position: bottom right,bottom left,bottom,top; }
+  }
 
-    /* Fade-In Animation for ALTECH */
-    @keyframes fadeInUpDelayed {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-in-delay {
+  /* Fade-In Animation for ALTECH */
+  @keyframes fadeInUpDelayed {
+    0% {
       opacity: 0;
-      animation: fadeInUpDelayed 1s ease-out forwards;
-      animation-delay: 1.2s;
+      transform: translateY(20px);
     }
-  </style>
-</head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen px-4">
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-  <div class="text-center space-y-6">
-    <div class="loader"></div>
-    
-  </div>
-
-</body>
-<!--h1-->
-       <h1 class="text-8xl font-extrabold text-black tracking-tight fade-in-delay">ALTECH</h1>
-      <p>Web Development | Graphics Design | Video Editing | Sales</p>
-    </header>
-    <div class="cta-button">
+  .fade-in-delay {
+    opacity: 0;
+    animation: fadeInUpDelayed 1s ease-out forwards;
+    animation-delay: 1.2s;
+  }
+</style>
+    <div style="padding: 15px;" class="cta-button">
       <a href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" class="whatsapp-button">
         Chat With Us on WhatsApp
       </a>
@@ -88,7 +94,7 @@
   </div>
 
   <!-- Services Section -->
-  <section class="services">
+  <section class="services" id="services">
     <h2>Our Services</h2>
     <div class="service-card">
       <img src="images/web dev.jpeg" alt="Web Development">
@@ -125,7 +131,7 @@
     </div>
   </section>
 
- <section class="altech-projects">
+ <section class="altech-projects" id="altech-projects">
   <div class="altech-container">
     <h2 class="altech-title" data-aos="fade-down">🚀 Our Projects</h2>
     <p class="altech-subtitle" data-aos="fade-down" data-aos-delay="100">
@@ -172,7 +178,7 @@
           <img src="images/e-learning-1-fb-EN.jpg"  alt="Gambler Electronics">
           <div class="altech-info">
             <h3>Edu-Learn</h3>
-            <p>A free E-learning website to offer students with digital skills.</p>
+            <p>A free E-learning platform to offer students with digital skills.</p>
           </div>
         </div>
       </a>
@@ -244,7 +250,7 @@
       </div>
     </div>
   </section>
-<section class="matches-section">
+<section class="matches-section" id="matches-section">
   <h2>⚽ Latest Match Highlights</h2>
   <div id="match-list">Loading...</div>
 </section>
