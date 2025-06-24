@@ -593,6 +593,46 @@ displayMatches();
     }
   });
 </script>
+  <!-- Animated Floating Button -->
+<style>
+.floating-btn-website {
+  position: fixed;
+  bottom: 150px;
+  right: 10px;
+  z-index: 9999;
+  background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
+  color: #fff;
+  padding: 18px 32px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(56,189,248,0.25);
+  font-size: 1.15rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: floatBtnPulse 1.5s infinite alternate;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.floating-btn-website:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(56,189,248,0.35);
+  background: linear-gradient(90deg, #38bdf8 0%, #2563eb 100%);
+}
+@keyframes floatBtnPulse {
+  0% { box-shadow: 0 8px 24px rgba(56,189,248,0.25); }
+  100% { box-shadow: 0 16px 32px rgba(56,189,248,0.35); }
+}
+.floating-btn-website .fa-globe {
+  font-size: 1.3em;
+}
+</style>
+<a href="https://altech.ct.ws/" target="_blank" class="floating-btn-website" aria-label="I need a website">
+  <i class="fa fa-globe"></i>
+  Need a website?
+</a>
 
   <footer>
     <p class="text-center py-4">&copy; 2025 ALTECH. All rights reserved.</p>
