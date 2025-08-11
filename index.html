@@ -39,68 +39,7 @@
         });
       </script>
 
-       <style>
-    /* Example layout: put robot to the right of the services column.
-       Adjust .robot-panel { right: 30px } to move it. */
-    .robot-panel {
-      position: fixed;            /* fixed so it stays while scrolling; change to absolute if you need */
-      right: 30px;                /* set left:30px to place on the left */
-      bottom: 60px;               /* distance from bottom */
-      width: 380px;
-      height: 420px;
-      max-width: 42vw;
-      max-height: 55vh;
-      background: transparent;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-      overflow: hidden;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* small handle in top-left so you can visually move it if needed */
-    .robot-panel .handle {
-      position: absolute;
-      left: 10px;
-      top: 10px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.04);
-      display:flex; align-items:center; justify-content:center;
-      font-size:12px; color:#dfeff6;
-      cursor: grab;
-      user-select: none;
-    }
-
-    /* canvas takes full panel */
-    #robot-canvas { width:100%; height:100%; display:block; }
-
-    /* small credit */
-    .robot-credit {
-      position: absolute;
-      right: 8px;
-      top: 10px;
-      font-family: Inter, system-ui, sans-serif;
-      font-size: 11px;
-      color: rgba(255,255,255,0.75);
-      background: rgba(0,0,0,0.25);
-      padding: 4px 8px;
-      border-radius: 8px;
-      pointer-events:none;
-    }
-
-    /* responsiveness: shrink on narrow screens */
-    @media (max-width: 800px){
-      .robot-panel { width: 240px; height: 300px; right: 12px; bottom: 30px; }
-      .robot-credit { font-size:10px; }
-    }
-  </style>
-
-      
+     
 </header>
 <!--logo animation-->
 <div class="text-center space-y-6 my-8">
@@ -113,261 +52,77 @@
   <!-- Services Section -->
   <section class="services" id="services">
 
-     <div id="robot-wrapper" class="robot-panel" aria-hidden="false">
-    <div class="handle" title="Drag to move">⤢</div>
-    <canvas id="robot-canvas"></canvas>
-    <div class="robot-credit">ALTECH Robot</div>
-  </div>
+  <!-- Add this inside your HTML body where you want the robot -->
+<div id="robot-container" style="width: 100%; height: 500px;"></div>
 
-  <!-- ThreeJS + extras via CDN -->
-  <script type="module">
-    import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
-    import { OrbitControls } from 'https://unpkg.com/three@0.158.0/examples/jsm/controls/OrbitControls.js';
-    import { GLTFLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
-    import { DRACOLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/DRACOLoader.js';
+<!-- Include Three.js -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
 
-    // ---------- USER CONFIG ----------
-    // Public realistic robot model (Three.js example). Replace with your hosted model if you have one.
-    const MODEL_URL = 'https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb';
-    // Text for chest badge
-    const BADGE_TEXT = 'ALTECH';
-    // Badge style
-    const BADGE_BG = '#0e758f';
-    const BADGE_TEXT_COLOR = '#ffffff';
-    // ----------------------------------
-
-    const wrapper = document.getElementById('robot-wrapper');
-    const canvas = document.getElementById('robot-canvas');
-
-    // Setup renderer
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-    function resizeRenderer(){
-      const w = wrapper.clientWidth, h = wrapper.clientHeight;
-      renderer.setSize(w, h, false);
-    }
-    resizeRenderer();
-
-    // Scene & camera
+<script>
+    const container = document.getElementById('robot-container');
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000); // transparent look with alpha true for realistic overlay
-    scene.background.convertSRGBToLinear = true;
-    const camera = new THREE.PerspectiveCamera(40, wrapper.clientWidth / wrapper.clientHeight, 0.1, 100);
-    camera.position.set(1.8, 1.6, 2.8);
+    scene.background = new THREE.Color(0xffffff);
 
-    // Controls
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.minDistance = 1.2;
-    controls.maxDistance = 6;
-    controls.target.set(0, 1, 0);
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(0, 1.6, 3);
 
-    // Lights (key + fill + rim)
-    const key = new THREE.DirectionalLight(0xffffff, 1.0);
-    key.position.set(3, 6, 3);
-    key.castShadow = true;
-    key.shadow.mapSize.set(2048, 2048);
-    scene.add(key);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
 
-    const fill = new THREE.HemisphereLight(0x8899aa, 0x222222, 0.6);
-    scene.add(fill);
+    // Lighting
+    const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+    scene.add(light);
 
-    const rim = new THREE.DirectionalLight(0x88aaff, 0.25);
-    rim.position.set(-3, 2, -2);
-    scene.add(rim);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    dirLight.position.set(3, 10, 10);
+    scene.add(dirLight);
 
-    // Ground (subtle)
-    const groundMat = new THREE.MeshStandardMaterial({ color: 0x0b0f14, roughness: 0.9, metalness: 0 });
-    const ground = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), groundMat);
-    ground.rotation.x = -Math.PI / 2;
-    ground.position.y = 0;
-    ground.receiveShadow = true;
-    scene.add(ground);
+    // Load a humanoid robot model (free from public domain)
+    const loader = new THREE.GLTFLoader();
+    loader.load("https://models.babylonjs.com/DamagedHelmet/glTF/DamagedHelmet.gltf", function (gltf) {
+        const model = gltf.scene;
+        model.scale.set(1.5, 1.5, 1.5);
+        model.position.set(-1.2, -1, 0); // Shift left
+        scene.add(model);
 
-    // Model loader (with DRACO if needed)
-    const draco = new DRACOLoader();
-    draco.setDecoderPath('https://unpkg.com/three@0.158.0/examples/js/libs/draco/');
+        // Add "ALTECH" text on chest
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 256;
+        canvas.height = 128;
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#000000";
+        ctx.font = "bold 48px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("ALTECH", canvas.width / 2, 80);
 
-    const loader = new GLTFLoader();
-    loader.setDRACOLoader(draco);
+        const texture = new THREE.CanvasTexture(canvas);
+        const material = new THREE.MeshBasicMaterial({ map: texture });
 
-    let robot = new THREE.Group();
-    robot.position.y = 0.0;
-    scene.add(robot);
+        const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.4), material);
+        textPlane.position.set(0, 0.9, 0.3);
+        model.add(textPlane);
 
-    // Create ALTECH badge as a canvas texture (so you can change text easily)
-    function createBadgeTexture(text){
-      const W = 512, H = 128;
-      const ctxCanvas = document.createElement('canvas');
-      ctxCanvas.width = W; ctxCanvas.height = H;
-      const ctx = ctxCanvas.getContext('2d');
-
-      // background
-      ctx.fillStyle = BADGE_BG;
-      // rounded rect
-      const r = 28;
-      ctx.beginPath();
-      ctx.moveTo(r,0);
-      ctx.lineTo(W - r, 0);
-      ctx.quadraticCurveTo(W, 0, W, r);
-      ctx.lineTo(W, H - r);
-      ctx.quadraticCurveTo(W, H, W - r, H);
-      ctx.lineTo(r, H);
-      ctx.quadraticCurveTo(0, H, 0, H - r);
-      ctx.lineTo(0, r);
-      ctx.quadraticCurveTo(0,0, r,0);
-      ctx.closePath();
-      ctx.fill();
-
-      // text
-      ctx.fillStyle = BADGE_TEXT_COLOR;
-      ctx.font = 'bold 64px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(text, W/2, H/2 + 4);
-
-      const tex = new THREE.CanvasTexture(ctxCanvas);
-      tex.encoding = THREE.sRGBEncoding;
-      tex.flipY = false;
-      return tex;
-    }
-
-    // Load model and attach badge
-    loader.load(MODEL_URL, (gltf) => {
-      const model = gltf.scene;
-      model.traverse((c) => {
-        if (c.isMesh) {
-          c.castShadow = true;
-          c.receiveShadow = true;
-          // increase roughness for a more realistic metal look if desired
-          if (c.material && !Array.isArray(c.material)) {
-            c.material.roughness = Math.max(0.2, c.material.roughness ?? 0.4);
-            c.material.metalness = Math.max(0.2, c.material.metalness ?? 0.6);
-          }
-        }
-      });
-
-      // add model to robot group
-      robot.add(model);
-
-      // compute bounding box to decide chest front position
-      const box = new THREE.Box3().setFromObject(model);
-      const size = new THREE.Vector3();
-      box.getSize(size);
-      const center = new THREE.Vector3();
-      box.getCenter(center);
-
-      // Determine the front direction in world space (approx)
-      // We'll place the badge slightly in front of the center on +Z relative to model orientation
-      const badgeWidth = size.x * 0.55;
-      const badgeHeight = size.y * 0.14;
-
-      // Create badge mesh
-      const badgeTex = createBadgeTexture(BADGE_TEXT);
-      const badgeMat = new THREE.MeshStandardMaterial({
-        map: badgeTex,
-        transparent: true,
-        side: THREE.DoubleSide,
-        metalness: 0.15,
-        roughness: 0.6
-      });
-
-      const badgeGeo = new THREE.PlaneGeometry(badgeWidth, badgeHeight, 1, 1);
-      const badgeMesh = new THREE.Mesh(badgeGeo, badgeMat);
-      badgeMesh.castShadow = false;
-      badgeMesh.receiveShadow = false;
-
-      // approximate chest location: a bit above center and forward
-      // tweak these multipliers if necessary for your model
-      const chestY = center.y + size.y * 0.08;      // slightly above center
-      const chestZ = center.z + size.z * 0.52;      // forward on Z (front)
-      const chestX = center.x;                      // centered on X
-
-      // place badge
-      badgeMesh.position.set(chestX, chestY, chestZ);
-      // rotate to face camera/front (we'll keep it upright)
-      badgeMesh.lookAt(camera.position);
-      badgeMesh.renderOrder = 999;
-
-      // Slightly offset so it sits above the surface
-      const outward = new THREE.Vector3(0, 0, 1).applyQuaternion(model.quaternion).normalize();
-      badgeMesh.position.addScaledVector(outward, 0.02 * Math.max(size.x, size.y, size.z));
-
-      // Parent the badge to the model so it moves with it
-      model.add(badgeMesh);
-
-      // Optional: scale/pose model for better framing
-      model.scale.setScalar(0.95);
-
-      // center model on ground
-      model.position.y = -box.min.y; // rest on ground plane
-
-      // small initial rotation so it's angled
-      model.rotation.y = Math.PI * 0.03;
-
-      // done
-    }, undefined, (err) => {
-      console.error('GLTF load error', err);
+        animate();
     });
 
-    // Animation
-    const clock = new THREE.Clock();
-    function animate(){
-      requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
-      // subtle bob and slow rotation
-      robot.position.y = 0.03 * Math.sin(t * 1.2);
-      robot.rotation.y = Math.sin(t * 0.2) * 0.02;
-      controls.update();
-      renderer.render(scene, camera);
+    function animate() {
+        requestAnimationFrame(animate);
+        scene.rotation.y += 0.005; // slow rotation
+        renderer.render(scene, camera);
     }
-    animate();
 
-    // Resize handling
-    new ResizeObserver(() => {
-      const w = wrapper.clientWidth, h = wrapper.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h, false);
-    }).observe(wrapper);
+    window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+</script>
 
-    // ------- Optional: Drag to move the panel on screen -------
-    (function makePanelDraggable(){
-      const handle = wrapper.querySelector('.handle');
-      let dragging = false;
-      let offset = { x: 0, y: 0 };
-
-      handle.addEventListener('pointerdown', (e) => {
-        dragging = true;
-        handle.setPointerCapture(e.pointerId);
-        const rect = wrapper.getBoundingClientRect();
-        offset.x = e.clientX - rect.left;
-        offset.y = e.clientY - rect.top;
-        handle.style.cursor = 'grabbing';
-      });
-
-      window.addEventListener('pointermove', (e) => {
-        if (!dragging) return;
-        const left = e.clientX - offset.x;
-        const top = e.clientY - offset.y;
-        wrapper.style.left = Math.max(6, left) + 'px';
-        wrapper.style.top = Math.max(6, top) + 'px';
-        wrapper.style.right = 'unset';
-        wrapper.style.bottom = 'unset';
-      });
-
-      window.addEventListener('pointerup', (e) => {
-        dragging = false;
-        handle.style.cursor = 'grab';
-      });
-    })();
-
-    // Small helper: click-and-drag on canvas to rotate model (OrbitControls covers this)
-  </script>
-
+    
     
     <h2>Our Services</h2>
     <div class="service-card">
@@ -926,6 +681,7 @@ displayMatches();
   </footer>
 </body>
 </html>
+
 
 
 
