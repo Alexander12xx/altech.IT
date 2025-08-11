@@ -53,74 +53,7 @@
   <section class="services" id="services">
 
   <!-- Add this inside your HTML body where you want the robot -->
-<div id="robot-container" style="width: 100%; height: 500px;"></div>
 
-<!-- Include Three.js -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
-
-<script>
-    const container = document.getElementById('robot-container');
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
-
-    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(0, 1.6, 3);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    container.appendChild(renderer.domElement);
-
-    // Lighting
-    const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
-    scene.add(light);
-
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-    dirLight.position.set(3, 10, 10);
-    scene.add(dirLight);
-
-    // Load a humanoid robot model (free from public domain)
-    const loader = new THREE.GLTFLoader();
-    loader.load("https://models.babylonjs.com/DamagedHelmet/glTF/DamagedHelmet.gltf", function (gltf) {
-        const model = gltf.scene;
-        model.scale.set(1.5, 1.5, 1.5);
-        model.position.set(-1.2, -1, 0); // Shift left
-        scene.add(model);
-
-        // Add "ALTECH" text on chest
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = 256;
-        canvas.height = 128;
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#000000";
-        ctx.font = "bold 48px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText("ALTECH", canvas.width / 2, 80);
-
-        const texture = new THREE.CanvasTexture(canvas);
-        const material = new THREE.MeshBasicMaterial({ map: texture });
-
-        const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.4), material);
-        textPlane.position.set(0, 0.9, 0.3);
-        model.add(textPlane);
-
-        animate();
-    });
-
-    function animate() {
-        requestAnimationFrame(animate);
-        scene.rotation.y += 0.005; // slow rotation
-        renderer.render(scene, camera);
-    }
-
-    window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-    });
-</script>
 
     
     
@@ -160,6 +93,99 @@
       <p><strong>video edits that bring your stories and messages to life.</strong></p>
     </div>
   </section>
+
+  <!-- Robot Section -->
+<section id="robot-section" style="width:100%;height:500px;display:flex;align-items:center;background:#111;">
+  <div id="robot-container" style="width:50%;height:100%;"></div>
+  <div style="flex:1;color:white;padding:20px;">
+    <h1>Welcome to ALTECH</h1>
+    <p>We innovate with technology — meet our friendly assistant!</p>
+  </div>
+</section>
+
+<!-- Three.js Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+(function() {
+  const container = document.getElementById('robot-container');
+
+  // Scene, Camera, Renderer
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x111111);
+
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.set(0, 1.5, 3);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  container.appendChild(renderer.domElement);
+
+  // Lighting
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+  hemiLight.position.set(0, 20, 0);
+  scene.add(hemiLight);
+
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+  dirLight.position.set(3, 10, 10);
+  scene.add(dirLight);
+
+  // Controls
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+
+  // Load Robot Model
+  const loader = new THREE.GLTFLoader();
+  loader.load('https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb', function(gltf) {
+    const robot = gltf.scene;
+    robot.scale.set(0.8, 0.8, 0.8);
+    scene.add(robot);
+
+    // Add "ALTECH" text on chest
+    const fontLoader = new THREE.FontLoader();
+    fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font) {
+      const textGeometry = new THREE.TextGeometry('ALTECH', {
+        font: font,
+        size: 0.08,
+        height: 0.01
+      });
+      const textMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+      const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+      textMesh.position.set(-0.2, 1.35, 0.18);
+      robot.add(textMesh);
+    });
+
+    // Animation Mixer
+    const mixer = new THREE.AnimationMixer(robot);
+    gltf.animations.forEach((clip) => {
+      if (clip.name.toLowerCase().includes('wave') || clip.name.toLowerCase().includes('idle')) {
+        mixer.clipAction(clip).play();
+      }
+    });
+
+    // Robot floating/waving motion
+    let clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const delta = clock.getDelta();
+      mixer.update(delta);
+      robot.position.y = Math.sin(Date.now() * 0.001) * 0.05; // floating motion
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  });
+
+  window.addEventListener('resize', () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+})();
+</script>
+
 
  <section class="altech-projects" id="altech-projects">
   <div class="altech-container">
@@ -681,6 +707,7 @@ displayMatches();
   </footer>
 </body>
 </html>
+
 
 
 
