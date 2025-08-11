@@ -91,6 +91,263 @@
         Chat With Us on WhatsApp
       </a>
     </div>
+
+    <!-- Place this where you want the robot to appear -->
+<div id="altech-robot" style="width:100%; height:500px; max-height:80vh;"></div>
+
+<script type="module">
+  // Editable settings
+  const CONTAINER_ID = 'altech-robot';
+  const ROBOT_COLOR_METAL = 0xb0c4de;
+  const ROBOT_COLOR_DARK = 0x1f2933;
+  const ACCENT_COLOR = 0x00c2ff;
+  const TEXT = 'ALTECH';
+
+  // Imports (Three + OrbitControls + FontLoader + TextGeometry)
+  import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
+  import { OrbitControls } from 'https://unpkg.com/three@0.158.0/examples/jsm/controls/OrbitControls.js';
+  import { FontLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/FontLoader.js';
+  import { TextGeometry } from 'https://unpkg.com/three@0.158.0/examples/jsm/geometries/TextGeometry.js';
+
+  // Container & renderer
+  const container = document.getElementById(CONTAINER_ID);
+  if (!container) throw new Error('Container #' + CONTAINER_ID + ' not found');
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0b0f14);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  container.appendChild(renderer.domElement);
+
+  // Camera + controls
+  const camera = new THREE.PerspectiveCamera(38, container.clientWidth / container.clientHeight, 0.1, 100);
+  camera.position.set(3.5, 2.2, 4);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.target.set(0, 1, 0);
+
+  // Lights
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x22222a, 0.6);
+  scene.add(hemi);
+
+  const dir = new THREE.DirectionalLight(0xffffff, 0.9);
+  dir.position.set(5, 10, 3);
+  dir.castShadow = true;
+  dir.shadow.camera.top = 6;
+  dir.shadow.camera.bottom = -6;
+  dir.shadow.camera.left = -6;
+  dir.shadow.camera.right = 6;
+  dir.shadow.mapSize.set(2048, 2048);
+  scene.add(dir);
+
+  // Ground
+  const groundMat = new THREE.MeshStandardMaterial({ color: 0x11141b, roughness: 0.95, metalness: 0 });
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), groundMat);
+  ground.rotation.x = -Math.PI/2;
+  ground.position.y = 0;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  // Materials
+  const metal = new THREE.MeshStandardMaterial({ color: ROBOT_COLOR_METAL, roughness: 0.35, metalness: 0.9 });
+  const dark = new THREE.MeshStandardMaterial({ color: ROBOT_COLOR_DARK, roughness: 0.8, metalness: 0.05 });
+  const accent = new THREE.MeshStandardMaterial({ color: ACCENT_COLOR, emissive: 0x0077aa, emissiveIntensity: 0.8, roughness: 0.2, metalness: 0.2 });
+
+  // Robot root
+  const robot = new THREE.Group();
+  robot.position.y = 0.75;
+  scene.add(robot);
+
+  // Torso
+  const torso = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.2, 0.5), metal);
+  torso.castShadow = true;
+  torso.receiveShadow = true;
+  robot.add(torso);
+
+  // Chest panel (accent) - text will be added in front of this panel
+  const chestPanel = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.6, 0.02), accent);
+  chestPanel.position.set(0, 0.05, 0.26);
+  torso.add(chestPanel);
+
+  // Head + neck
+  const headGroup = new THREE.Group();
+  headGroup.position.set(0, 0.95, 0);
+  robot.add(headGroup);
+
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.12, 16), dark);
+  neck.position.y = 0.06;
+  neck.castShadow = true;
+  headGroup.add(neck);
+
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.28, 32, 32), metal);
+  head.position.y = 0.32;
+  head.castShadow = true;
+  headGroup.add(head);
+
+  // Arms & legs builder (kept simple)
+  function makeArm(side=1){
+    const group = new THREE.Group();
+    group.position.set(side * 0.55, 0.48, 0);
+    robot.add(group);
+
+    const upper = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.46, 0.18), dark);
+    upper.position.set(0, -0.2, 0);
+    upper.castShadow = true;
+    group.add(upper);
+
+    const elbow = new THREE.Group();
+    elbow.position.set(0, -0.45, 0);
+    upper.add(elbow);
+
+    const lower = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.42, 0.16), metal);
+    lower.position.set(0, -0.22, 0);
+    lower.castShadow = true;
+    elbow.add(lower);
+
+    const hand = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.12, 0.2), dark);
+    hand.position.set(0, -0.36, 0.06);
+    hand.castShadow = true;
+    elbow.add(hand);
+
+    return group;
+  }
+  const leftArm = makeArm(-1);
+  const rightArm = makeArm(1);
+
+  function makeLeg(x){
+    const group = new THREE.Group();
+    group.position.set(x, -0.6, 0);
+    robot.add(group);
+
+    const upperLeg = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.5, 0.2), dark);
+    upperLeg.position.set(0, -0.25, 0);
+    upperLeg.castShadow = true;
+    group.add(upperLeg);
+
+    const knee = new THREE.Group();
+    knee.position.set(0, -0.55, 0);
+    upperLeg.add(knee);
+
+    const lowerLeg = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.5, 0.18), metal);
+    lowerLeg.position.set(0, -0.26, 0);
+    lowerLeg.castShadow = true;
+    knee.add(lowerLeg);
+
+    const foot = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.12, 0.6), dark);
+    foot.position.set(0, -0.62, 0.15);
+    foot.castShadow = true;
+    knee.add(foot);
+
+    return group;
+  }
+  const leftLeg = makeLeg(-0.22);
+  const rightLeg = makeLeg(0.22);
+
+  // Simple thruster/backpack
+  const thruster = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.06, 16), dark);
+  thruster.rotation.z = Math.PI / 2;
+  thruster.position.set(0, 0.05, -0.28);
+  thruster.castShadow = true;
+  torso.add(thruster);
+
+  // Animation helpers
+  const clock = new THREE.Clock();
+  let idleSpeed = 1.0;
+
+  // Resize handling
+  window.addEventListener('resize', onWindowResize);
+  function onWindowResize(){
+    const w = container.clientWidth, h = container.clientHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+
+  // Pointer for head look
+  const pointer = new THREE.Vector2();
+  const raycaster = new THREE.Raycaster();
+  window.addEventListener('pointermove', (e) => {
+    pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+    pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  }, { passive: true });
+
+  // Load font and create 3D text "ALTECH" on chest
+  const fontLoader = new FontLoader();
+  const fontUrl = 'https://unpkg.com/three@0.158.0/examples/fonts/helvetiker_regular.typeface.json';
+
+  fontLoader.load(fontUrl, (font) => {
+    const txtGeo = new TextGeometry(TEXT, {
+      font: font,
+      size: 0.11,          // adjust size to fit chest
+      height: 0.02,
+      curveSegments: 8,
+      bevelEnabled: false
+    });
+    txtGeo.computeBoundingBox();
+    const bb = txtGeo.boundingBox;
+    const txtWidth = bb.max.x - bb.min.x;
+
+    // Create mesh and position slightly in front of chest panel
+    const txtMesh = new THREE.Mesh(txtGeo, new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      emissive: 0x003b4d,
+      emissiveIntensity: 0.9,
+      metalness: 0.2,
+      roughness: 0.2
+    }));
+    // center horizontally and place on panel
+    txtMesh.position.set(-txtWidth / 2, 0.02, 0.275); // z slightly in front of panel
+    txtMesh.rotation.x = 0;
+    torso.add(txtMesh);
+  }, undefined, (err) => {
+    console.warn('Font load failed', err);
+  });
+
+  // Animation loop
+  function animate(){
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime() * idleSpeed;
+
+    // subtle bob
+    robot.position.y = 0.75 + Math.sin(t * 0.7) * 0.02;
+
+    // arms/legs
+    leftArm.rotation.x = Math.sin(t * 1.6) * 0.7 - 0.2;
+    rightArm.rotation.x = Math.sin(t * 1.6 + Math.PI) * 0.7 - 0.2;
+    leftLeg.rotation.x = Math.sin(t * 1.2 + Math.PI) * 0.25;
+    rightLeg.rotation.x = Math.sin(t * 1.2) * 0.25;
+
+    // head follows pointer a bit
+    raycaster.setFromCamera(pointer, camera);
+    const planeY = new THREE.Plane(new THREE.Vector3(0, 1, 0), -0.3);
+    const intersect = new THREE.Vector3();
+    raycaster.ray.intersectPlane(planeY, intersect);
+    if (intersect) headGroup.lookAt(intersect.x, intersect.y + 0.3, intersect.z);
+
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Basic keyboard shortcuts: F = fullscreen, Space = pause
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'f') {
+      if (!document.fullscreenElement) container.requestFullscreen().catch(()=>{});
+      else document.exitFullscreen().catch(()=>{});
+    }
+    if (e.key === ' ') idleSpeed = idleSpeed > 0 ? 0 : 1.0;
+  });
+
+  // ensure initial sizing is correct
+  onWindowResize();
+</script>
+
+    
   
   </div>
 
@@ -653,6 +910,7 @@ displayMatches();
   </footer>
 </body>
 </html>
+
 
 
 
