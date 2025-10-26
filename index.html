@@ -1,599 +1,619 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ALTECH | Web, Graphics & Video Solutions</title>
-  <meta name="description" content="ALTECH — web development, graphics design and video editing services." />
-  <!-- Tailwind CDN (utilities) -->
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- AOS for scroll animations -->
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <style>
-    /* ---------- Base / Utility ---------- */
-    :root {
-      --primary: #0078D7;
-      --accent:  #00AEEF;
-      --muted:   #6b7280;
-      --bg:      #f8fafc;
-    }
-    html,body { height:100%; }
-    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); margin:0; color:#0f172a; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+<!-- AOS -->
 
-    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link rel="icon" href="images/ChatGPT Image May 10, 2025, 10_13_44 PM.png" type="images/ChatGPT Image May 10, 2025, 10_13_44 PM.png">
 
-    /* Header */
-    .site-header {
-      backdrop-filter: blur(6px);
-      background: rgba(255,255,255,0.7);
-      border-bottom: 1px solid rgba(15,23,42,0.04);
-      position: sticky;
-      top:0;
-      z-index:40;
-    }
-    .nav-link { color:#0f172a; text-decoration:none; font-weight:500; transition: color .15s ease; }
-    .nav-link:hover { color:var(--primary); }
 
-    /* Buttons */
-    .btn-primary {
-      background: linear-gradient(90deg,var(--primary),var(--accent));
-      color:#fff;
-      padding:.55rem .85rem;
-      border-radius:8px;
-      font-weight:600;
-      display:inline-block;
-      text-decoration:none;
-    }
-    .btn-outline {
-      padding:.45rem .75rem;
-      border-radius:8px;
-      border:1px solid rgba(15,23,42,0.08);
-      background:transparent;
-      color:#0f172a;
-      text-decoration:none;
-    }
-
-    /* Hero */
-    .hero { padding:6rem 0 4rem; text-align:center; }
-    .brand-loader { width:84px; height:84px; margin:0 auto 1rem; border-radius:14px; background:linear-gradient(135deg,var(--primary),var(--accent)); box-shadow:0 12px 34px rgba(3,105,161,0.12); }
-
-    /* cards */
-    .card { background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(2,6,23,0.06); padding:1rem; display:flex; flex-direction:column; gap:.6rem; border:1px solid rgba(15,23,42,0.03); }
-    .card-image { width:100%; height:160px; object-fit:cover; border-radius:8px; }
-    .card-title { font-weight:700; margin-top:6px; }
-    .card-body { color:var(--muted); margin-top:6px; }
-    .card-cta { margin-top:auto; display:inline-block; color:var(--primary); font-weight:600; text-decoration:none; }
-
-    /* projects */
-    .project-card { display:block; overflow:hidden; border-radius:12px; text-decoration:none; color:inherit; background:#fff; box-shadow:0 10px 30px rgba(2,6,23,0.04); }
-    .project-image { width:100%; height:160px; object-fit:cover; display:block; }
-    .project-meta { padding:12px; }
-
-    /* products */
-    .product-card { padding:12px; text-align:center; background:#fff; border-radius:12px; box-shadow:0 8px 22px rgba(2,6,23,0.04); }
-    .product-image { width:100%; height:160px; object-fit:contain; border-radius:8px; background:#fff; }
-    .product-title { font-weight:600; margin-top:8px; }
-    .product-price { color:#2563eb; font-weight:700; }
-
-    /* matches */
-    .matches-section { background:#0f172a; color:#f1f5f9; padding:3.5rem 0; }
-    .match-card { background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); padding:14px; border-radius:12px; color:#cbd5e1; }
-
-    /* CTA floating */
-    .floating-cta { position:fixed; right:14px; bottom:110px; z-index:9999; background: linear-gradient(90deg,#2563eb,#38bdf8); color:#fff; padding:10px 16px; border-radius:999px; box-shadow:0 12px 32px rgba(56,189,248,0.15); font-weight:700; text-decoration:none; }
-
-    /* ---------- Chat UI (Left floating) ---------- */
-    .chat-toggle {
-      position: fixed; left: 18px; bottom: 24px; z-index:10020; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-      background: linear-gradient(145deg,var(--primary),var(--accent)); box-shadow:0 12px 30px rgba(3,105,161,0.18); cursor:pointer; transition: transform .18s ease;
-    }
-    .chat-toggle:hover { transform: scale(1.06); }
-    .chat-panel {
-      position: fixed; left: 18px; bottom: 100px; width:360px; max-width: calc(100% - 36px); height:520px; background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(8px); border-radius:14px; box-shadow:0 20px 60px rgba(2,6,23,0.14); transform: translateY(20px) scale(.99); opacity:0; visibility:hidden;
-      transition: all .28s cubic-bezier(.2,.9,.26,1); overflow:hidden; z-index:10010; display:flex; flex-direction:column;
-    }
-    .chat-panel.open { transform: translateY(0) scale(1); opacity:1; visibility:visible; }
-    .chat-header { background: linear-gradient(90deg,var(--primary),var(--accent)); color:#fff; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; font-weight:600; }
-    .chat-close { background:transparent; border:none; color:#fff; font-size:18px; cursor:pointer; }
-    .chat-body { padding:12px; display:flex; flex-direction:column; gap:12px; height:100%; }
-    .chat-log { overflow-y:auto; flex:1; padding-right:6px; }
-    .chat-bubble { padding:10px 12px; border-radius:10px; max-width:86%; margin-bottom:8px; line-height:1.4; word-break:break-word; }
-    .bot { background:#f1f5f9; color:#0f172a; align-self:flex-start; }
-    .user { background: linear-gradient(90deg,var(--primary),var(--accent)); color:#fff; align-self:flex-end; }
-    .typing { opacity:.8; font-style:italic; background:#eef2ff; color:#0f172a; }
-
-    .chat-input-area { display:flex; gap:8px; border-top:1px solid rgba(15,23,42,0.04); padding-top:10px; }
-    .chat-input { flex:1; padding:10px 12px; border-radius:8px; border:1px solid rgba(15,23,42,0.06); }
-    .chat-send { background:var(--primary); color:#fff; padding:9px 12px; border-radius:8px; border:none; cursor:pointer; }
-
-    /* footer */
-    footer{ padding:2rem 0; background:#fff; margin-top:2rem; text-align:center; color:#64748b; font-size:.95rem; }
-
-    @media (max-width:640px) {
-      .hero { padding:4rem 0 3rem; }
-      .chat-panel { left:12px; right:12px; bottom:80px; width:auto; height:420px; }
-      .floating-cta { right:10px; bottom:86px; }
-    }
-
-    /* small focus outline for keyboard users */
-    :focus { outline: 2px solid rgba(59,130,246,0.25); outline-offset:2px; }
-  </style>
 </head>
-<body>
-
-  <!-- Header -->
-  <header class="site-header">
-    <div class="container flex items-center justify-between py-3">
-      <a href="#" class="flex items-center gap-3">
-        <img src="images/ChatGPT Image May 10, 2025, 10_13_44 PM.png" alt="ALTECH" style="height:40px;width:40px;border-radius:8px;object-fit:cover">
-        <span style="font-weight:700;">ALTECH</span>
-      </a>
-
-      <nav class="hidden md:flex items-center gap-8">
-        <a class="nav-link" href="#services">Services</a>
-        <a class="nav-link" href="#projects">Projects</a>
-        <a class="nav-link" href="#products">Products</a>
-        <a class="nav-link" href="#matches-section">Matches</a>
-        <a class="nav-link" href="#careers">Careers</a>
+<body class="bg-gray-100 text-gray-800">
+  <div style="padding: 0px;"  class="hero-section">
+    <header style="background:url(https://learning.dell.com/content/dam/dell-emc/heroes/hero-instructor-sessions-xl-1600x300.png);" class="w-full shadow-md py-4 px-6 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <img src="images/ChatGPT Image May 10, 2025, 10_13_44 PM.png" alt="Altech IT Logo" class="h-10 w-10 rounded-full shadow" />
+      </div>
+      <nav class="space-x-8">
+        <a href="#services" class="text-white hover:text-blue-600 font-medium transition scroll-link">Services</a>
+        <a href="#altech-projects" class="text-white hover:text-blue-600 font-medium transition scroll-link">Projects</a>
+        <a href="#matches-section" class="text-white hover:text-blue-600 font-medium transition scroll-link">Matches</a>
       </nav>
+      <script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('.scroll-link').forEach(link => {
+          link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href').replace('#', '');
+            const target = document.getElementById(targetId);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          });
+        });
+      </script>
 
-      <div class="flex items-center gap-3">
-        <a class="btn-primary hidden md:inline-block" href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" rel="noreferrer">Contact</a>
-        <button id="mobile-menu-btn" class="md:hidden p-2 rounded" aria-label="Open menu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <div id="mobile-nav" class="hidden border-t bg-white">
-      <div class="container px-4 py-3 flex flex-col gap-2">
-        <a class="mobile-link nav-link" href="#services">Services</a>
-        <a class="mobile-link nav-link" href="#projects">Projects</a>
-        <a class="mobile-link nav-link" href="#products">Products</a>
-        <a class="mobile-link nav-link" href="#matches-section">Matches</a>
-        <a class="mobile-link nav-link" href="#careers">Careers</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <main>
-    <section class="hero">
-      <div class="container text-center">
-        <div class="brand-loader" aria-hidden="true"></div>
-        <h1 class="text-4xl md:text-5xl font-extrabold">ALTECH</h1>
-        <p class="mt-4 text-gray-600">Web development · Graphics design · Video editing</p>
-        <div class="mt-8 flex justify-center gap-4">
-          <a class="btn-primary" href="#services">Our Services</a>
-          <a class="btn-outline" href="#projects">View Projects</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Services -->
-    <section id="services" class="container py-12">
-      <h2 class="text-2xl font-bold">Services</h2>
-      <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-6">
-        <article class="card" data-aos="fade-up">
-          <img src="images/web dev.jpeg" alt="Web Development" class="card-image">
-          <h3 class="card-title">Web Development</h3>
-          <p class="card-body">Build modern, responsive websites tailored to your business goals.</p>
-          <a class="card-cta" href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" rel="noreferrer">Request Quote</a>
-        </article>
-
-        <article class="card" data-aos="fade-up" data-aos-delay="80">
-          <img src="images/OIP.jpeg" alt="Graphics Design" class="card-image">
-          <h3 class="card-title">Graphics Design</h3>
-          <p class="card-body">Logos, posters and branding that speak to your audience.</p>
-          <a class="card-cta" href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" rel="noreferrer">Start a Project</a>
-        </article>
-
-        <article class="card" data-aos="fade-up" data-aos-delay="160">
-          <img src="images/Artboard 4.png" alt="Video Editing" class="card-image">
-          <h3 class="card-title">Video Editing</h3>
-          <p class="card-body">Professional edits and post-production for social and broadcast.</p>
-          <a class="card-cta" href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" rel="noreferrer">Get a Demo</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="bg-gray-50 py-12">
-      <div class="container">
-        <h2 class="text-2xl font-bold">Projects</h2>
-        <p class="text-gray-600 max-w-2xl">Explore recent projects built with attention to performance and modern UI.</p>
-
-        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-8">
-          <a class="project-card" href="https://electronicsg.netlify.app/" target="_blank" rel="noreferrer" data-aos="zoom-in">
-            <img src="images/ecommerce-wp-solutions.jpg" alt="Gambler Electronics" class="project-image">
-            <div class="project-meta">
-              <h3>Gambler Electronics</h3>
-              <p>Modern e-commerce with WhatsApp integration.</p>
-            </div>
-          </a>
-
-          <a class="project-card" href="https://quickfix1.netlify.app/" target="_blank" rel="noreferrer" data-aos="zoom-in" data-aos-delay="80">
-            <img src="images/phone repair 2.webp" alt="Quickfix" class="project-image">
-            <div class="project-meta">
-              <h3>Quickfix Phone Repair</h3>
-              <p>Service-based website with appointment flow.</p>
-            </div>
-          </a>
-
-          <a class="project-card" href="https://altechit.netlify.app/" target="_blank" rel="noreferrer" data-aos="zoom-in" data-aos-delay="160">
-            <img src="images/web-development.jpg" alt="ALTECH site" class="project-image">
-            <div class="project-meta">
-              <h3>ALTECH (this site)</h3>
-              <p>Showcase and portfolio site for ALTECH services.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Products -->
-    <section id="products" class="container py-12">
-      <h2 class="text-2xl font-bold">Electronics & Accessories</h2>
-      <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6">
-        <div class="product-card">
-          <img src="images/oraimo-removebg-preview.png" alt="Oraimo airbuds" class="product-image">
-          <h3 class="product-title">Oraimo airbuds</h3>
-          <p class="product-price">KSh 850</p>
-          <button onclick="orderWhatsApp('Oraimo airbuds', 850)" class="btn-secondary mt-3">Order</button>
-        </div>
-
-        <div class="product-card">
-          <img src="images/bt spk.jpeg" alt="F109 Bluetooth speaker" class="product-image">
-          <h3 class="product-title">F109 Bluetooth speaker</h3>
-          <p class="product-price">KSh 1400</p>
-          <button onclick="orderWhatsApp('F109 Bluetooth wireless speaker', 1400)" class="btn-secondary mt-3">Order</button>
-        </div>
-
-        <!-- add more product cards as needed -->
-      </div>
-    </section>
-
-    <!-- Matches -->
-    <section id="matches-section" class="matches-section">
-      <div class="container">
-        <h2 class="text-2xl font-bold text-white">Latest Match Highlights</h2>
-        <div id="match-list" class="grid gap-6 mt-6 md:grid-cols-2 lg:grid-cols-3">
-          <div class="match-card">Loading matches...</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Careers -->
-    <section id="careers" class="container py-12">
-      <h2 class="text-2xl font-bold">Join Our Team</h2>
-      <p class="text-gray-600 max-w-2xl">We're hiring a Junior Video Editor — submit an application via the form below and we'll contact you.</p>
-
-      <div class="mt-8 max-w-3xl">
-        <form id="jobApplicationForm" class="card p-6">
-          <div class="grid gap-4 md:grid-cols-2">
-            <label class="input-group">
-              <span style="font-weight:600;">Full Name</span>
-              <input id="fullName" required type="text" class="chat-input" />
-            </label>
-            <label class="input-group">
-              <span style="font-weight:600;">Email</span>
-              <input id="email" required type="email" class="chat-input" />
-            </label>
-
-            <label class="input-group">
-              <span style="font-weight:600;">Profession</span>
-              <input id="profession" required type="text" class="chat-input" />
-            </label>
-            <label class="input-group">
-              <span style="font-weight:600;">Phone</span>
-              <input id="phoneNumber" required type="tel" class="chat-input" />
-            </label>
-          </div>
-
-          <div class="mt-6 text-right">
-            <button type="submit" class="btn-primary">Send Application</button>
-          </div>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <!-- Floating CTA -->
-  <a href="https://altech.ct.ws/" target="_blank" rel="noreferrer" class="floating-cta">Need a website?</a>
-
-  <!-- Left-floating mini AI Chatbot toggle -->
-  <div id="chat-toggle" class="chat-toggle" title="Chat with ALTECH" role="button" aria-label="Open chat">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-      <path d="M4 4h16v12H5.17L4 17.17V4zm0-2a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4z"/>
-    </svg>
+     
+</header>
+<!--logo animation-->
+<div class="text-center space-y-6 my-8">
+  <div class="loader"></div>
+  <h1 class="text-8xl font-extrabold text-black tracking-tight fade-in-delay">ALTECH</h1>
+  <p>Web Development | Graphics Design | Video Editing | Sales</p>
+</div>
   </div>
 
-  <!-- Chat panel -->
-  <div id="chat-panel" class="chat-panel" role="dialog" aria-label="Altech chatbot">
-    <div class="chat-header">
-      <div class="chat-title" style="font-weight:700;">Altech Assistant</div>
-      <button id="chat-close" class="chat-close" aria-label="Close">×</button>
+  <!-- Services Section -->
+  <section class="services" id="services">
+ <h2>Our Services</h2>
+    <div class="service-card">
+      <img src="images/web dev.jpeg" alt="Web Development">
+     
+      <div class="cta-button">
+        <a href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" class="whatsapp-button">
+          Web development
+        </a>
+      </div>
+    
+
+      <p><strong>Build modern, responsive websites tailored to your business goals.</strong></p>
     </div>
+    <div class="service-card">
+      <img src="images/OIP.jpeg" alt="Graphics Design">
 
-    <div class="chat-body">
-      <div id="chat-log" class="chat-log" aria-live="polite"></div>
+      <div class="cta-button">
+        <a href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" class="whatsapp-button">
+          Graphics Design
+        </a>
+      </div>
+      
+      <p><strong>logos to posters, we craft visually stunning designs that speak volumes.</strong></p>
+    </div>
+  
+    <div class="service-card">
+      <img src="images/Artboard 4.png" alt="Video Editing">
 
-      <form id="chat-form" class="chat-input-area" autocomplete="off">
-        <input id="chat-input" name="message" class="chat-input" placeholder="Ask about web development, design or video..." aria-label="Message" />
-        <button id="chat-send" type="submit" class="chat-send">Send</button>
-      </form>
+      <div class="cta-button">
+        <a href="https://api.whatsapp.com/send?phone=254706389206" target="_blank" class="whatsapp-button">
+          Video Editing
+        </a>
+      </div>
+      
+      <p><strong>video edits that bring your stories and messages to life.</strong></p>
+    </div>
+  </section>
+
+
+
+  
+ <section class="altech-projects" id="altech-projects">
+  <div class="altech-container">
+    <h2 class="altech-title" data-aos="fade-down">🚀 Our Projects</h2>
+    <p class="altech-subtitle" data-aos="fade-down" data-aos-delay="100">
+      Explore the modern, responsive websites we've built.
+    </p>
+    <div class="altech-grid">
+      <a href="https://electronicsg.netlify.app/" target="_blank">
+        <div class="altech-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/ecommerce-wp-solutions.jpg" alt="Gambler Electronics">
+          <div class="altech-info">
+            <h3>Gambler Electronics</h3>
+            <p>A modern e-commerce platform with WhatsApp integration and sleek animations.</p>
+          </div>
+        </div>
+      </a>
+      <!-- Add more project cards here -->
+       <div class="altech-grid">
+      <a href="https://quickfix1.netlify.app/" target="_blank">
+        <div class="altech-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/phone repair 2.webp"  alt="Gambler Electronics">
+          <div class="altech-info">
+            <h3>Quickfix phone repair</h3>
+            <p>A modern phone repair platform with WhatsApp integration and sleek animations.</p>
+          </div>
+        </div>
+      </a>
+       </div>
+      <!-- Add more project cards here -->
+       <div class="altech-grid">
+      <a href="https://altechit.netlify.app/" target="_blank">
+        <div class="altech-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/web-development.jpg"  alt="Gambler Electronics">
+          <div class="altech-info">
+            <h3>ALTECH</h3>
+            <p>Our own website showcasing our services and projects.</p>
+          </div>
+        </div>
+      </a>
+       </div>
+      <!-- Add more project cards here -->
+        <div class="altech-grid">
+      <a href="https://edulearnit.netlify.app/" target="_blank">
+        <div class="altech-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/e-learning-1-fb-EN.jpg"  alt="Gambler Electronics">
+          <div class="altech-info">
+            <h3>Edu-Learn</h3>
+            <p>A free E-learning platform to offer students with digital skills.</p>
+          </div>
+        </div>
+      </a>
+       </div>
+      <!-- Add more project cards here -->
+        <div class="altech-grid">
+      <a href="https://weatheralt.netlify.app/" target="_blank">
+        <div class="altech-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="https://img.freepik.com/premium-vector/types-weather-conditions-template-hand-drawn-cartoon-flat-illustration_2175-7669.jpg?w=900"  alt="Gambler Electronics">
+          <div class="altech-info">
+            <h3>Weather App</h3>
+            <p>A real-time weather platform.</p>
+          </div>
+        </div>
+      </a>
+       </div>
+      <!-- Add more project cards here -->
+              <div class="altech-grid">
+      <a href="https://mumofoundation.netlify.app/" target="_blank">
+        <div class="altech-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/Gemini_Generated_Image_2n19bv2n19bv2n19.png"  alt="Gambler Electronics">
+          <div class="altech-info">
+            <h3>Mumo Foundation</h3>
+            <p>Vijana tujibonge.</p>
+          </div>
+        </div>
+      </a>
+       </div>
+      <!-- Add more project cards here -->
     </div>
   </div>
+</section>
 
-  <footer>
-    <div class="container">&copy; 2025 ALTECH. All rights reserved.</div>
-  </footer>
 
-  <!-- AOS + script block -->
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- Products Section -->
+   <section class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8 text-center">Electronics & Accessories</h1>
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/oraimo-removebg-preview.png" alt="Oraimo airbuds" class="w-full h-48 object-contain rounded">
+        <h2 class="mt-2 text-lg font-semibold">Oraimo airbuds</h2>
+        <p class="text-blue-600 font-bold">KSh 850</p>
+        <button onclick="orderWhatsApp('Oraimo airbuds', 850)" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order</button>
+      </div>
+      <!--more pruducts-->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/bt spk.jpeg" alt="wireless bt" class="w-full h-48 object-contain rounded">
+        <h2 class="mt-2 text-lg font-semibold">F109 Bluetooth wireless speaker</h2>
+        <p class="text-blue-600 font-bold">KSh 1400</p>
+        <button onclick="orderWhatsApp('F109 Bluetooth wireless speaker', 1400)" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order</button>
+      </div>
+         <!--more pruducts-->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/spk.jpeg" alt="bt speaker" class="w-full h-48 object-contain rounded">
+        <h2 class="mt-2 text-lg font-semibold">F105 Bluetooth wireless speaker</h2>
+        <p class="text-blue-600 font-bold">KSh 1200</p>
+        <button onclick="orderWhatsApp('F105 Bluetooth wireless speaker', 1200)" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order</button>
+      </div>
+         <!--more pruducts-->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/Bamboo mwiko.jpeg" alt="Bamboo Mwiko" class="w-full h-48 object-contain rounded">
+        <h2 class="mt-2 text-lg font-semibold">Bamboo Mwiko</h2>
+        <p class="text-blue-600 font-bold">KSh 600</p>
+        <button onclick="orderWhatsApp('Bamboo Mwiko', 600)" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order</button>
+      </div>
+         <!--more pruducts-->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/blender.jpeg" alt="Portable Blender" class="w-full h-48 object-contain rounded">
+        <h2 class="mt-2 text-lg font-semibold">Portable Blender</h2>
+        <p class="text-blue-600 font-bold">KSh 1200</p>
+        <button onclick="orderWhatsApp('Portable Blender', 1200)" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order</button>
+      </div>
+         <!--more pruducts-->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/Portable fan.jpeg" alt="Hand Held Portable Fan" class="w-full h-48 object-contain rounded">
+        <h2 class="mt-2 text-lg font-semibold">Hand Held Portable Fan</h2>
+        <p class="text-blue-600 font-bold">KSh 600</p>
+        <button onclick="orderWhatsApp('Hand Held Portable Fan', 600)" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order</button>
+      </div>
+         <!--more pruducts-->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/WhatsApp Image 2025-05-05 at 19.24.49.jpeg" alt="P9 Wireless" class="w-full h-48 object-contain rounded">
+        <h2 class="mt-2 text-lg font-semibold">P9 Wireless</h2>
+        <p class="text-blue-600 font-bold">KSh 850</p>
+        <button onclick="orderWhatsApp('P9 Wireless', 850)" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order</button>
+      </div>
+         <!--more pruducts-->
+      <div class="bg-white p-4 shadow rounded-lg">
+        <img src="images/WhatsApp Image 2025-05-04 at 20.47.50.jpeg" alt="JBL Air F9 Pro+" class="w-full h-48 object-contain rounded">
+        <h2 class="mt-2 text-lg font-semibold">JBL Air F9 Pro+</h2>
+        <p class="text-blue-600 font-bold">KSh 850</p>
+        <button onclick="orderWhatsApp('JBL Air F9 Pro+', 850)" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Order</button>
+      </div>
+    </div>
+  </section>
+<section class="matches-section" id="matches-section">
+  <h2>⚽ Latest Match Highlights</h2>
+  <div id="match-list">Loading...</div>
+</section>
 
-  <script>
-  /* ==========================
-     SINGLE-FILE SITE SCRIPT
-     - Paste your OpenRouter / DeepSeek API key into OPENROUTER_API_KEY below
-     - IMPORTANT: Exposing API keys client-side is insecure. For production, use a server-side proxy.
-     ========================== */
+<script>
+fetch("https://www.scorebat.com/video-api/v3/")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("match-list");
+    container.innerHTML = "";
 
-  // ---------- CONFIG ----------
-  const OPENROUTER_API_KEY = "YOUR_OPENROUTER_API_KEY_HERE"; // <-- paste your key here before testing
-  const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-
-  // ---------- DOM helpers ----------
-  const $ = s => document.querySelector(s);
-  const $$ = s => Array.from(document.querySelectorAll(s));
-
-  // ---------- Mobile nav ----------
-  const mobileBtn = document.getElementById('mobile-menu-btn');
-  const mobileNav = document.getElementById('mobile-nav');
-  if (mobileBtn) mobileBtn.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
-  $$('.mobile-link').forEach(a => a.addEventListener('click', () => mobileNav.classList.add('hidden')));
-
-  // ---------- Smooth anchor scroll ----------
-  $$('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const href = a.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
+    data.response.slice(0, 6).forEach(match => {
+      const { title, competition, thumbnail, url } = match;
+      const card = document.createElement("div");
+      card.className = "match-card";
+      card.innerHTML = `
+        <a href="${url}" target="_blank" style="text-decoration:none;">
+          <img src="${thumbnail}" style="width:100%; border-radius:8px;" alt="${title}">
+          <h3 style="color:#38bdf8;">${title}</h3>
+          <p style="color:#ccc;">${competition}</p>
+        </a>
+      `;
+      container.appendChild(card);
     });
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("match-list").innerText = "Failed to load matches.";
   });
+</script>
 
-  // ---------- WhatsApp order helper ----------
-  function orderWhatsApp(product, price) {
-    const phone = "254706389206";
-    const msg = `Hello! I'm interested in buying ${product} for KSh ${price}. Is it available?`;
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+<style>
+.matches-section {
+  padding: 40px 20px;
+  background-color: #0f172a;
+  color: #f1f5f9;
+  text-align: center;
+}
+.match-card {
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 350px;
+  background: #1e293b;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+.match-card:hover {
+  transform: translateY(-5px);
+}
+</style>
+
+
+<style>
+  .matches-section {
+    background: #0f172a;
+    color: #f1f5f9;
+    padding: 60px 20px;
+    text-align: center;
   }
-  window.orderWhatsApp = orderWhatsApp;
-
-  // ---------- Job application ----------
-  const jobForm = document.getElementById('jobApplicationForm');
-  if (jobForm) jobForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = $('#fullName').value.trim();
-    const email = $('#email').value.trim();
-    const profession = $('#profession').value.trim();
-    const phone = $('#phoneNumber').value.trim();
-    const text = `Hello, I am applying for a job.\n\nName: ${name}\nEmail: ${email}\nProfession: ${profession}\nPhone: ${phone}`;
-    window.open(`https://wa.me/254706389206?text=${encodeURIComponent(text)}`, '_blank');
-  });
-
-  // ---------- Matches (TheSportsDB) ----------
-  async function getTeamLogo(teamName) {
-    try {
-      const res = await fetch(`https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${encodeURIComponent(teamName)}`);
-      const json = await res.json();
-      return json.teams?.[0]?.strTeamBadge || null;
-    } catch (err) { return null; }
+  .matches-section h2 {
+    color: #38bdf8;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
   }
-
-  function startCountdown(targetDate, element) {
-    function update() {
-      const now = new Date();
-      const distance = targetDate - now;
-      if (distance <= 0) { element.textContent = "Kickoff!"; return; }
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      element.textContent = `${hours}h ${minutes}m ${seconds}s`;
-    }
-    update();
-    return setInterval(update, 1000);
+  #match-list {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    max-width: 1200px;
+    margin: auto;
   }
-
-  async function displayMatches() {
-    const el = $('#match-list');
-    if (!el) return;
-    el.innerHTML = '<div class="match-card">Loading matches...</div>';
-    try {
-      const res = await fetch("https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328");
-      const data = await res.json();
-      el.innerHTML = '';
-      const events = (data.events || []).slice(0,6);
-      for (const m of events) {
-        const { strEvent, dateEvent, strTime, strHomeTeam, strAwayTeam, strVenue, intHomeScore, intAwayScore } = m;
-        const homeLogo = await getTeamLogo(strHomeTeam) || '';
-        const awayLogo = await getTeamLogo(strAwayTeam) || '';
-        const kickoff = new Date(`${dateEvent}T${strTime || '00:00'}`);
-        const div = document.createElement('div');
-        div.className = 'match-card';
-        div.innerHTML = `
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            ${ homeLogo ? `<img src="${homeLogo}" width="40" height="40" alt="${strHomeTeam}">` : '' }
-            <strong>${strHomeTeam}</strong>
-            <span style="margin:0 8px;color:#94a3b8">vs</span>
-            ${ awayLogo ? `<img src="${awayLogo}" width="40" height="40" alt="${strAwayTeam}">` : '' }
-            <strong>${strAwayTeam}</strong>
-          </div>
-          <h4 style="margin-top:8px;color:#fbbf24">${strEvent}</h4>
-          <p style="margin:6px 0;color:#cbd5e1"><strong>Venue:</strong> ${strVenue || 'TBA'}</p>
-          <p style="margin:0;color:#cbd5e1">${(intHomeScore !== null && intAwayScore !== null) ? `Score: ${intHomeScore} - ${intAwayScore}` : 'Upcoming'}</p>
-          <p class="countdown" style="margin-top:8px;font-weight:600;color:#4ade80">Loading...</p>
-        `;
-        el.appendChild(div);
-        const countdownEl = div.querySelector('.countdown');
-        startCountdown(kickoff, countdownEl);
-      }
-    } catch (err) {
-      el.innerHTML = '<div class="match-card">Failed to load matches.</div>';
-      console.error(err);
-    }
+  .match-card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
   }
-  displayMatches();
-
-  // ---------- AOS init ----------
-  AOS.init({ duration:900, once:true });
-
-  // ---------- Chatbot logic (OpenRouter / DeepSeek) ----------
-  const toggle = document.getElementById('chat-toggle');
-  const panel = document.getElementById('chat-panel');
-  const closeBtn = document.getElementById('chat-close');
-  const chatForm = document.getElementById('chat-form');
-  const chatInput = document.getElementById('chat-input');
-  const chatLog = document.getElementById('chat-log');
-
-  // Allowed topics keep the bot focussed
-  const allowedTopics = ["web development","graphics design","video editing","full stack development","projects","marketing","tech","it","website","web","design"];
-
-  function escapeHtml(unsafe) {
-    return unsafe
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+  .match-card:hover {
+    transform: translateY(-6px);
   }
-
-  function appendBubble(text, who='bot') {
-    const el = document.createElement('div');
-    el.className = 'chat-bubble ' + (who === 'bot' ? 'bot' : 'user');
-    el.innerHTML = text;
-    chatLog.appendChild(el);
-    chatLog.scrollTop = chatLog.scrollHeight;
+  .team {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
   }
-
-  // initial message (bot may include small emoji)
-  appendBubble('<strong>Bot:</strong> Hi — welcome to ALTECH. Ask about our services or projects.', 'bot');
-
-  // open/close
-  toggle.addEventListener('click', () => {
-    panel.classList.toggle('open');
-    if (panel.classList.contains('open')) setTimeout(()=>chatInput.focus(), 220);
-  });
-  closeBtn.addEventListener('click', () => panel.classList.remove('open'));
-  document.addEventListener('click', (e) => {
-    if (!panel.contains(e.target) && !toggle.contains(e.target)) panel.classList.remove('open');
-  });
-
-  function showTyping() {
-    const t = document.createElement('div');
-    t.className = 'chat-bubble bot typing';
-    t.id = 'typing-indicator';
-    t.innerHTML = '<em>Altech is typing...</em>';
-    chatLog.appendChild(t);
-    chatLog.scrollTop = chatLog.scrollHeight;
+  .team img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
   }
-  function removeTyping() {
-    const t = document.getElementById('typing-indicator');
-    if (t) t.remove();
+  .match-card h4 {
+    margin-top: 10px;
+    color: #fcd34d;
   }
-
-  function buildPrompt(userMessage) {
-    const lower = userMessage.toLowerCase();
-    const matches = allowedTopics.some(t => lower.includes(t));
-    if (!matches) {
-      return { allowed:false, reply: "Sorry, I only answer questions about ALTECH services: web development, graphics design, video editing, and related IT topics. For direct contact, message +254 706 389 206."};
-    }
-    const system = "You are a professional Altech assistant. Give concise, helpful answers about web development, graphics design, and video editing. Whenever contact information is requested include: +254 706 389 206.";
-    const user = `User asked: "${userMessage}"`;
-    return { allowed:true, system, user };
+  .match-card p {
+    margin: 5px 0;
+    font-size: 0.95rem;
   }
+  .countdown {
+    font-weight: bold;
+    color: #4ade80;
+    margin-top: 8px;
+  }
+</style>
 
-  async function sendToOpenRouter(userMessage) {
-    // show user bubble
-    appendBubble('<strong>You:</strong> ' + escapeHtml(userMessage), 'user');
+<script>
+async function getTeamLogo(teamName) {
+  const res = await fetch(`https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${encodeURIComponent(teamName)}`);
+  const data = await res.json();
+  return data.teams ? data.teams[0].strTeamBadge : null;
+}
 
-    const build = buildPrompt(userMessage);
-    if (!build.allowed) {
-      appendBubble('<strong>Bot:</strong> ' + escapeHtml(build.reply), 'bot');
+function startCountdown(targetDate, element) {
+  function update() {
+    const now = new Date();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+      element.textContent = "Kickoff!";
       return;
     }
 
-    showTyping();
-    try {
-      const payload = {
-        model: "deepseek/deepseek-r1-0528-qwen3-8b",
-        messages: [
-          { role: "system", content: build.system },
-          { role: "user", content: build.user }
-        ],
-        max_tokens: 600,
-        temperature: 0.2
-      };
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === "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") {
-        removeTyping();
-        appendBubble('<strong>Bot:</strong> AI key is missing. Please paste your OpenRouter / DeepSeek API key into the script before testing.', 'bot');
-        return;
-      }
-
-      const resp = await fetch(OPENROUTER_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${OPENROUTER_API_KEY}`
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!resp.ok) {
-        throw new Error('OpenRouter API error: ' + resp.status);
-      }
-
-      const data = await resp.json();
-      // typical path: data.choices[0].message.content
-      const botText = data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "Sorry, I couldn't generate a response.";
-      removeTyping();
-      appendBubble('<strong>Bot:</strong> ' + escapeHtml(botText), 'bot');
-
-    } catch (err) {
-      removeTyping();
-      console.error(err);
-      appendBubble('<strong>Bot:</strong> Sorry — an error occurred while contacting the AI service. Please try again later.', 'bot');
-    }
+    element.textContent = `⏳ ${hours}h ${minutes}m ${seconds}s`;
+    setTimeout(update, 1000);
   }
 
-  // Submit handler + Enter key
-  chatForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const val = chatInput.value.trim();
-    if (!val) return;
-    sendToOpenRouter(val);
-    chatInput.value = '';
-  });
-  chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      chatForm.dispatchEvent(new Event('submit', { cancelable: true }));
-    }
-  });
+  update();
+}
 
-  // small accessibility: show focus styles on keyboard navigation
-  document.addEventListener('keydown', (e) => { if (e.key === 'Tab') document.body.classList.add('show-focus'); });
+async function displayMatches() {
+  const res = await fetch("https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328");
+  const data = await res.json();
+  const matchList = document.getElementById("match-list");
+  matchList.innerHTML = "";
 
-  // ---------- End of single-file script ----------
+  for (const match of data.events.slice(0, 6)) {
+    const { strEvent, dateEvent, strTime, strHomeTeam, strAwayTeam, strVenue, intHomeScore, intAwayScore } = match;
+    const homeLogo = await getTeamLogo(strHomeTeam);
+    const awayLogo = await getTeamLogo(strAwayTeam);
+    const scoreText = (intHomeScore !== null && intAwayScore !== null)
+      ? `<strong>Score:</strong> ${intHomeScore} - ${intAwayScore}`
+      : `<strong>Status:</strong> Upcoming`;
+
+    const kickoffTime = new Date(`${dateEvent}T${strTime}`);
+    const displayDate = kickoffTime.toLocaleString();
+
+    const card = document.createElement("div");
+    card.className = "match-card";
+    card.innerHTML = `
+      <div class="team">
+        <img src="${homeLogo}" alt="${strHomeTeam} logo" /> <span>${strHomeTeam}</span>
+        <span style="margin: 0 10px;">vs</span>
+        <img src="${awayLogo}" alt="${strAwayTeam} logo" /> <span>${strAwayTeam}</span>
+      </div>
+      <h4>${strEvent}</h4>
+      <p><strong>Date:</strong> ${displayDate}</p>
+      <p><strong>Venue:</strong> ${strVenue || 'TBA'}</p>
+      <p>${scoreText}</p>
+      <p class="countdown">Loading countdown...</p>
+    `;
+    matchList.appendChild(card);
+
+    const countdownEl = card.querySelector(".countdown");
+    startCountdown(kickoffTime, countdownEl);
+  }
+}
+
+displayMatches();
+</script>
+
+
+
+  <!-- Job Application Section -->
+  <section class="bg-gradient-to-br from-white to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+        <!-- Robot Section -->
+<iframe src='https://my.spline.design/genkubgreetingrobot-FZdNLsZgb8kt7SJJ8vMTaaAz/' frameborder='0' width='100%' height='100%'></iframe>
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold text-center text-gray-800 mb-6">Join Our Team</h2>
+      <h3 class="text-blue-600 text-center text-2xl font-semibold">Junior Video Editor</h3>
+      <p class="text-center text-gray-600 mb-10 text-lg">We're hiring! Submit your application below to be considered for current or future opportunities.</p>
+      <form id="jobApplicationForm" class="bg-white p-10 shadow-xl rounded-xl space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input type="text" id="fullName" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="email" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label for="profession" class="block text-sm font-medium text-gray-700 mb-1">Profession</label>
+            <input type="text" id="profession" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+            <input type="tel" id="phoneNumber" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-md transition duration-300">
+            Send Application
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("jobApplicationForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const name = document.getElementById("fullName").value;
+      const email = document.getElementById("email").value;
+      const profession = document.getElementById("profession").value;
+      const phone = document.getElementById("phoneNumber").value;
+      const message = `Hello, I am applying for a job.\n\nName: *${name}*\nEmail: *${email}*\nProfession: *${profession}*\nPhone: *${phone}*`;
+      const waUrl = `https://wa.me/254706389206?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank');
+    });
   </script>
 
-  <!-- AOS init -->
-  <script> AOS.init({ duration:900, once:true }); </script>
+<section>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css">
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1200, once: true });
+</script>
+
+
+
+  
+<script>
+  function orderWhatsApp(product, price) {
+  const phone = "254706389206";
+  const msg = `Hello! I'm interested in buying *${product}* for *KSh ${price}*. Is it available?`;
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+}
+
+ function updateCountdowns() {
+      const countdowns = document.querySelectorAll('.countdown');
+      const now = new Date();
+
+      countdowns.forEach(el => {
+        const matchTime = new Date(el.getAttribute('data-time'));
+        const diff = matchTime - now;
+
+        if (diff <= 0) {
+          const since = Math.floor((now - matchTime) / 1000);
+          el.textContent = `Started ${since}s ago`;
+        } else {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+
+          el.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+      });
+    }
+
+    setInterval(updateCountdowns, 1000);
+    updateCountdowns();
+</script>
+
+ 
+ 
+
+<script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+<script>
+  /* paste this line in verbatim */
+  window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+  /* customize formbutton below*/     
+  formbutton("create", {
+    action: "https://formspree.io/f/xkgrodee",
+    title: "How can we help?",
+    fields: [
+    
+    {
+        type: "textarea",
+        label: "Name:",
+        name: "Your Name",
+        placeholder: "Full Names",
+      },
+      {
+        type: "textarea",
+        label: "Contact:",
+        name: "Contact",
+        placeholder: "Phone number.eg +254 767 873 345",
+      },
+    { 
+        type: "email", 
+        label: "Email:", 
+        name: "email",
+        required: true,
+        placeholder: "your@email.com"
+      },
+      {
+        type: "textarea",
+        label: "Message:",
+        name: "message",
+        placeholder: "What's on your mind?",
+      },
+
+      { type: "submit" }      
+    ],
+    styles: {
+      title: {
+        backgroundColor: "gray"
+      },
+      button: {
+        backgroundColor: "gray"
+      }
+    }
+  });
+</script>
+  <!-- Animated Floating Button -->
+<style>
+.floating-btn-website {
+  position: fixed;
+  bottom: 150px;
+  right: 10px;
+  z-index: 9999;
+  background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
+  color: #fff;
+  padding: 18px 32px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(56,189,248,0.25);
+  font-size: 1.15rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: floatBtnPulse 1.5s infinite alternate;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.floating-btn-website:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(56,189,248,0.35);
+  background: linear-gradient(90deg, #38bdf8 0%, #2563eb 100%);
+}
+@keyframes floatBtnPulse {
+  0% { box-shadow: 0 8px 24px rgba(56,189,248,0.25); }
+  100% { box-shadow: 0 16px 32px rgba(56,189,248,0.35); }
+}
+.floating-btn-website .fa-globe {
+  font-size: 1.3em;
+}
+</style>
+    
+<a href="https://altech.ct.ws/" target="_blank" class="floating-btn-website" aria-label="I need a website">
+  <i class="fa fa-globe"></i>
+  Need a website?
+</a>
+    
+
+
+  <footer>
+    <p class="text-center py-4">&copy; 2025 ALTECH. All rights reserved.</p>
+  </footer>
 </body>
-</html>
+  </html>
